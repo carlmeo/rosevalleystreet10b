@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Nya Lägenheten 🏡</title>
+<title>Rose Valley Street 10b 🏡</title>
 <link rel="manifest" href="manifest.json">
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
@@ -174,14 +174,14 @@ const{useState,useEffect,useRef,useCallback,useMemo}=React;
 
 /* ── Firebase Config ── */
 /* REPLACE THIS with your Firebase project config */
-const firebaseConfig = {
-  apiKey: "AIzaSyBMRwUntyyxEf_ipcRv6ixR6W87fVACyfY",
-  authDomain: "rose-valley-street-10b.firebaseapp.com",
-  databaseURL: "https://rose-valley-street-10b-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "rose-valley-street-10b",
-  storageBucket: "rose-valley-street-10b.firebasestorage.app",
-  messagingSenderId: "387411087",
-  appId: "1:387411087:web:eaba0d5da7fd70a15114fa"
+const firebaseConfig={
+  apiKey:"AIzaSyBMRwUntyyxEf_ipcRv6ixR6W87fVACyfY",
+  authDomain:"rose-valley-street-10b.firebaseapp.com",
+  databaseURL:"https://rose-valley-street-10b-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:"rose-valley-street-10b",
+  storageBucket:"rose-valley-street-10b.firebasestorage.app",
+  messagingSenderId:"387411087",
+  appId:"1:387411087:web:eaba0d5da7fd70a15114fa"
 };
 
 let app,db;
@@ -311,7 +311,7 @@ function PasswordScreen({onAuth}){
     e('span',{className:'pw-decos',style:{bottom:50,right:60,transform:'rotate(-20deg)'}},'🍋'),
     e('div',{className:'pw-box'},
       e('h1',null,'🏡'),
-      e('h1',null,'Nya Lägenheten'),
+      e('h1',null,'Rose Valley Street 10b'),
       e('div',{className:'sub'},isSetup?'Ange lösenord för att fortsätta':'Välj ett lösenord för att komma igång'),
       e('input',{type:'password',placeholder:'Lösenord...',value:pw,onChange:ev=>setPw(ev.target.value),onKeyDown:ev=>{if(ev.key==='Enter')handleSubmit()},autoFocus:true}),
       e('button',{onClick:handleSubmit,disabled:loading},loading?'...':isSetup?'Logga in':'Skapa lösenord'),
@@ -469,7 +469,7 @@ function MainApp(){
   return e('div',{className:'app','data-page':page},
     e('div',{className:'container'},
       e('div',{className:'hdr'},
-        e('h1',null,'Nya Lägenheten 🏡'),
+        e('h1',null,'Rose Valley Street 10b 🏡'),
       ),
       e('div',{className:'tabs'},
         e('div',{className:'tab'+(page==='buy'?' active':''),onClick:()=>setPage('buy')},'🫒 Köpa'),
