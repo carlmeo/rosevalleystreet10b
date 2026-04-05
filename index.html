@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Rose Valley Street 10b 🏡</title>
-<link rel="manifest" href="manifest.json">
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
@@ -18,128 +16,88 @@
 body{font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;overscroll-behavior:none}
 input,select,textarea,button{font-family:inherit;font-size:inherit}
 button{cursor:pointer;border:none;background:none}
-
 .app{min-height:100dvh;transition:background .4s var(--ease);padding:0 0 80px}
-.app[data-page=buy]{background:#F5EFE0}
-.app[data-page=sell]{background:#F5EDE0}
-.app[data-page=fix]{background:#EEEDF5}
-
-.app[data-page=buy]{--ac:#4A5A3A;--ac2:#7A8A6A;--ac3:#B5C49A;--ac4:#3A4A2A;--bg:#F5EFE0;--card:#FDFAF2;--card-b:#DDD8C4;--input-bg:#EDE8D8;--pb1-a:#B5C49A;--pb1-b:#D4A855;--pb2-a:#D4A855;--pb2-b:#C47D4A}
-.app[data-page=sell]{--ac:#8A5A3A;--ac2:#A0856A;--ac3:#D4A855;--ac4:#5A3A2A;--bg:#F5EDE0;--card:#FDF8F0;--card-b:#D4C4A8;--input-bg:#EDE4D8;--pb1-a:#D4A855;--pb1-b:#C47D4A;--pb2-a:#B5C49A;--pb2-b:#7A8A6A}
-.app[data-page=fix]{--ac:#5A5A78;--ac2:#8A88A0;--ac3:#B5B0D4;--ac4:#3A3A5A;--bg:#EEEDF5;--card:#F8F6FC;--card-b:#D0CDE0;--input-bg:#DDDBE6;--pb1-a:#B5B0D4;--pb1-b:#8A8AA0;--pb2-a:#B5B0D4;--pb2-b:#8A8AA0}
-
+.app[data-page=buy]{background:#F5EFE0;--ac:#4A5A3A;--ac2:#7A8A6A;--ac3:#B5C49A;--ac4:#3A4A2A;--card:#FDFAF2;--card-b:#DDD8C4;--input-bg:#EDE8D8;--pb1-a:#B5C49A;--pb1-b:#D4A855;--pb2-a:#D4A855;--pb2-b:#C47D4A}
+.app[data-page=sell]{background:#F5EDE0;--ac:#8A5A3A;--ac2:#A0856A;--ac3:#D4A855;--ac4:#5A3A2A;--card:#FDF8F0;--card-b:#D4C4A8;--input-bg:#EDE4D8;--pb1-a:#D4A855;--pb1-b:#C47D4A;--pb2-a:#B5C49A;--pb2-b:#7A8A6A}
+.app[data-page=fix]{background:#EEEDF5;--ac:#5A5A78;--ac2:#8A88A0;--ac3:#B5B0D4;--ac4:#3A3A5A;--card:#F8F6FC;--card-b:#D0CDE0;--input-bg:#DDDBE6;--pb1-a:#B5B0D4;--pb1-b:#8A8AA0;--pb2-a:#B5B0D4;--pb2-b:#8A8AA0}
 .container{max-width:500px;margin:0 auto;padding:12px 14px}
-
-/* Password Screen */
 .pw-screen{min-height:100dvh;display:flex;align-items:center;justify-content:center;background:#F5EFE0;flex-direction:column;padding:20px}
 .pw-box{background:#FDFAF2;border:1px solid #DDD8C4;border-radius:20px;padding:32px 28px;width:100%;max-width:340px;text-align:center}
 .pw-box h1{font-size:24px;font-weight:600;color:#3A4A2A;margin-bottom:4px}
 .pw-box .sub{font-size:13px;color:#7A8A6A;margin-bottom:20px}
-.pw-box input{width:100%;padding:12px 16px;border:1.5px solid #DDD8C4;border-radius:12px;font-size:15px;background:#F5EFE0;color:#3A4A2A;outline:none;transition:border-color .2s}
+.pw-box input{width:100%;padding:12px 16px;border:1.5px solid #DDD8C4;border-radius:12px;font-size:15px;background:#F5EFE0;color:#3A4A2A;outline:none}
 .pw-box input:focus{border-color:#4A5A3A}
-.pw-box button{width:100%;padding:12px;background:#4A5A3A;color:#E8DFC8;border-radius:12px;font-size:15px;font-weight:500;margin-top:12px;transition:transform .1s}
+.pw-box button{width:100%;padding:12px;background:#4A5A3A;color:#E8DFC8;border-radius:12px;font-size:15px;font-weight:500;margin-top:12px}
 .pw-box button:active{transform:scale(.97)}
 .pw-box .err{color:#C47D4A;font-size:12px;margin-top:8px}
-.pw-decos{position:absolute;pointer-events:none;font-size:28px;opacity:.3}
-
-/* Header */
+.pw-decos{position:absolute;pointer-events:none;font-size:28px;opacity:.5}
 .hdr{text-align:center;padding:8px 0 4px}
 .hdr h1{font-size:20px;font-weight:600;color:var(--ac4);letter-spacing:-.3px}
-.hdr .sub{font-size:11px;color:var(--ac2);margin-top:1px}
-
-/* Tabs */
-.tabs{display:flex;border-radius:12px;padding:3px;margin:8px 0;gap:2px;background:var(--input-bg);transition:background .4s var(--ease)}
-.tab{flex:1;text-align:center;font-size:11px;font-weight:500;padding:7px 2px;border-radius:9px;cursor:pointer;transition:all .25s var(--ease);color:var(--ac2)}
+.tabs{display:flex;border-radius:12px;padding:3px;margin:8px 0;gap:2px;background:var(--input-bg)}
+.tab{flex:1;text-align:center;font-size:11px;font-weight:500;padding:7px 2px;border-radius:9px;cursor:pointer;color:var(--ac2);transition:all .25s var(--ease)}
 .tab.active{background:var(--ac);color:#E8DFC8}
-
-/* Search */
 .search-wrap{position:relative;margin-bottom:8px}
 .search-wrap::before{content:'🔍';position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;pointer-events:none;z-index:1}
-.search{width:100%;background:var(--input-bg);border:none;border-radius:10px;padding:8px 12px 8px 32px;font-size:12px;color:var(--ac4);outline:none;transition:background .3s}
+.search{width:100%;background:var(--input-bg);border:none;border-radius:10px;padding:8px 12px 8px 32px;font-size:12px;color:var(--ac4);outline:none}
 .search::placeholder{color:var(--ac2);opacity:.7}
-
-/* Summary */
-.summary{background:var(--ac);border-radius:14px;padding:11px 14px;margin-bottom:8px;color:#E8DFC8;position:relative;overflow:hidden;transition:background .4s var(--ease)}
+.summary{background:var(--ac);border-radius:14px;padding:11px 14px;margin-bottom:8px;color:#E8DFC8;position:relative;overflow:hidden}
 .summary .row{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px}
 .summary .row span:first-child{opacity:.65}
 .summary .row .val{font-weight:500}
 .pb{background:rgba(255,255,255,.15);border-radius:5px;height:6px;margin:3px 0 6px;overflow:hidden}
 .pb .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--pb1-a),var(--pb1-b));transition:width .5s var(--ease)}
 .pb .fill.alt{background:linear-gradient(90deg,var(--pb2-a),var(--pb2-b))}
-.summary .deco{position:absolute;opacity:.2;font-size:20px;pointer-events:none}
-
-/* Section Header */
-.sec-head{background:var(--ac);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin:3px 0;transition:transform .1s}
+.summary .deco{position:absolute;pointer-events:none}
+.sec-head{background:var(--ac);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;margin:3px 0}
 .sec-head:active{transform:scale(.98)}
 .sec-head .left{display:flex;align-items:center;gap:6px}
 .sec-head .title{font-size:14px;font-weight:500;color:#E8DFC8}
 .sec-head .badge{font-size:10px;color:var(--ac3);background:rgba(255,255,255,.1);padding:1px 7px;border-radius:6px}
 .sec-head .chev{color:var(--ac3);font-size:12px;transition:transform .25s var(--ease)}
 .sec-head .chev.collapsed{transform:rotate(-90deg)}
+.sec-edit{font-size:13px;padding:2px 6px;cursor:pointer;opacity:.5;color:#E8DFC8}
+.sec-edit:hover{opacity:1}
 .sec-stats{display:flex;gap:5px;padding:3px 2px;font-size:10px;color:var(--ac2);flex-wrap:wrap}
 .sec-stats span{background:var(--input-bg);padding:1px 7px;border-radius:6px}
-
-/* Item Cards */
-.item{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--card-b);border-radius:10px;padding:5px 8px;margin:3px 0;transition:border-color .15s,opacity .3s,transform .15s}
+.item{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--card-b);border-radius:10px;padding:5px 8px;margin:3px 0;transition:all .15s}
 .item:active{transform:scale(.99)}
 .item.done{opacity:.5}
 .item.done .item-name{text-decoration:line-through;color:var(--ac2)}
 .item .drag{color:var(--card-b);font-size:12px;cursor:grab;line-height:1;touch-action:none;user-select:none;padding:4px 2px}
-.item .thumb{width:34px;height:34px;border-radius:7px;background:var(--input-bg);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;overflow:hidden;position:relative}
+.item .thumb{width:34px;height:34px;border-radius:7px;background:var(--input-bg);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;overflow:hidden;cursor:pointer}
 .item .thumb img{width:100%;height:100%;object-fit:cover}
-.item .thumb{position:relative;cursor:pointer}
-.thumb-zoom{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:220px;height:220px;border-radius:14px;overflow:hidden;border:2px solid var(--card-b);background:var(--card);z-index:15;box-shadow:0 6px 24px rgba(0,0,0,.25)}
-.thumb-zoom img{width:100%;height:100%;object-fit:contain;background:var(--input-bg)}
-.item .thumb:hover .thumb-zoom{display:block}
-.item .thumb.zoom-open .thumb-zoom{display:block}
-.sec-edit{font-size:13px;padding:2px 6px;cursor:pointer;opacity:.5;transition:opacity .2s;color:#E8DFC8}
-.sec-edit:hover{opacity:1}
 .item .info{flex:1;min-width:0}
 .item .item-name{font-size:12px;font-weight:500;color:var(--ac4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .item .meta{font-size:10px;color:var(--ac2);display:flex;gap:6px;flex-wrap:wrap}
 .item .link-tag{font-size:9px;color:var(--ac3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;cursor:pointer;text-decoration:underline}
 .item .check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--ac3);flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s}
 .item .check.checked{background:var(--ac);border-color:var(--ac)}
-.item .edit-btn{font-size:14px;padding:4px;cursor:pointer;opacity:.4;transition:opacity .2s}
+.item .edit-btn{font-size:14px;padding:4px;cursor:pointer;opacity:.4}
 .item .edit-btn:hover{opacity:.8}
-
-/* Status Pills */
 .pill{font-size:9px;padding:1px 7px;border-radius:6px;font-weight:500;white-space:nowrap;flex-shrink:0}
-.pill-unlisted{background:#EDE8D8;color:#8A8A7A}
-.pill-listed{background:#E8D8C0;color:#8A6A3A}
-.pill-reserved{background:#D4A855;color:#5A3A1A}
-.pill-sold{background:#7A8A6A;color:#F5EFE0}
-.pill-todo{background:#E4E2EE;color:#5A5A78}
-.pill-progress{background:#B5B0D4;color:#3A3A5A}
+.pill-unlisted{background:#EDE8D8;color:#8A8A7A}.pill-listed{background:#E8D8C0;color:#8A6A3A}
+.pill-reserved{background:#D4A855;color:#5A3A1A}.pill-sold{background:#7A8A6A;color:#F5EFE0}
+.pill-todo{background:#E4E2EE;color:#5A5A78}.pill-progress{background:#B5B0D4;color:#3A3A5A}
 .pill-done-fix{background:#8A8AA0;color:#F0EEF5}
-.pill-us{background:#DDE8D8;color:#4A6A3A}
-.pill-landlord{background:#E8DDD8;color:#6A4A3A}
-
-/* Branch Divider */
-.branch{margin:6px 0;display:block;width:100%}
-
-/* FAB */
+.pill-us{background:#DDE8D8;color:#4A6A3A}.pill-landlord{background:#E8DDD8;color:#6A4A3A}
+.branch{margin:8px 0;display:block;width:100%}
 .fab{position:fixed;bottom:20px;right:max(20px,calc(50% - 230px));width:48px;height:48px;background:var(--ac);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s var(--ease),background .4s var(--ease);z-index:10;box-shadow:0 2px 12px rgba(0,0,0,.15)}
 .fab:hover{transform:scale(1.08) rotate(90deg)}
 .fab:active{transform:scale(.95)}
 .fab svg{stroke:#E8DFC8;stroke-width:2.5;width:22px;height:22px}
-
-/* Add Section */
-.add-sec{display:flex;align-items:center;justify-content:center;gap:6px;padding:7px;margin:6px 0;border:1.5px dashed var(--ac3);border-radius:10px;font-size:11px;color:var(--ac2);cursor:pointer;transition:all .15s;background:transparent}
+.add-sec{display:flex;align-items:center;justify-content:center;gap:6px;padding:7px;margin:6px 0;border:1.5px dashed var(--ac3);border-radius:10px;font-size:11px;color:var(--ac2);cursor:pointer;background:transparent}
 .add-sec:hover{background:var(--input-bg);border-color:var(--ac2)}
-
-/* Modal */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:20;display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
-.modal{background:var(--bg,#F5EFE0);border-radius:20px 20px 0 0;width:100%;max-width:500px;padding:20px 18px 32px;max-height:85dvh;overflow-y:auto;animation:slideUp .3s var(--ease)}
+.modal{background:var(--card,#FDFAF2);border-radius:20px 20px 0 0;width:100%;max-width:500px;padding:20px 18px 32px;max-height:85dvh;overflow-y:auto;animation:slideUp .3s var(--ease)}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .modal h2{font-size:17px;font-weight:600;color:var(--ac4);margin-bottom:14px;text-align:center}
 .modal label{display:block;font-size:12px;color:var(--ac2);margin:10px 0 4px;font-weight:500}
-.modal input,.modal select,.modal textarea{width:100%;padding:10px 12px;border:1.5px solid var(--card-b);border-radius:10px;font-size:14px;background:var(--card);color:var(--ac4);outline:none;transition:border-color .2s}
+.modal input,.modal select,.modal textarea{width:100%;padding:10px 12px;border:1.5px solid var(--card-b);border-radius:10px;font-size:14px;background:var(--card);color:var(--ac4);outline:none}
 .modal input:focus,.modal select:focus,.modal textarea:focus{border-color:var(--ac)}
-.modal textarea{resize:vertical;min-height:60px}
+.modal textarea{resize:vertical;min-height:50px}
 .modal .btn-row{display:flex;gap:8px;margin-top:16px}
-.modal .btn{flex:1;padding:11px;border-radius:10px;font-size:14px;font-weight:500;transition:transform .1s}
+.modal .btn{flex:1;padding:11px;border-radius:10px;font-size:14px;font-weight:500}
 .modal .btn:active{transform:scale(.97)}
 .modal .btn-primary{background:var(--ac);color:#E8DFC8}
 .modal .btn-secondary{background:var(--input-bg);color:var(--ac2)}
@@ -147,21 +105,35 @@ button{cursor:pointer;border:none;background:none}
 .modal .img-preview{width:60px;height:60px;border-radius:8px;object-fit:cover;border:1px solid var(--card-b);margin-top:4px}
 .modal .img-upload-row{display:flex;gap:8px;align-items:flex-end}
 .modal .img-upload-btn{padding:8px 14px;border-radius:8px;background:var(--input-bg);color:var(--ac2);font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap}
-
-/* Sortable ghost/drag styles */
+.img-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:30;display:flex;align-items:center;justify-content:center;cursor:pointer;animation:fadeIn .2s;padding:20px}
+.img-modal img{max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain}
+.opts-count{font-size:9px;color:var(--ac3);background:var(--input-bg);padding:1px 6px;border-radius:5px;cursor:pointer;flex-shrink:0}
+.item-wrap{background:var(--card);border:1px solid var(--card-b);border-radius:10px;margin:3px 0;overflow:hidden}
+.item-wrap .item{margin:0;border:none;border-radius:0}
+.opts-area{padding:4px 8px 8px;border-top:1px solid var(--card-b)}
+.opt-card{background:var(--input-bg);border:1px solid var(--card-b);border-radius:8px;padding:6px 8px;margin:4px 0;display:flex;align-items:center;gap:8px}
+.opt-card.chosen{border-color:var(--ac);border-width:2px}
+.opt-card .opt-img{width:36px;height:36px;border-radius:6px;overflow:hidden;flex-shrink:0;background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.opt-card .opt-img img{width:100%;height:100%;object-fit:cover}
+.opt-card .opt-info{flex:1;min-width:0}
+.opt-card .opt-name{font-size:11px;font-weight:500;color:var(--ac4);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.opt-card .opt-price{font-size:10px;color:var(--ac2)}
+.opt-card .opt-note{font-size:9px;color:var(--ac3);font-style:italic}
+.opt-card .opt-link{font-size:9px;color:var(--ac3);text-decoration:underline;cursor:pointer}
+.opt-btns{display:flex;gap:4px;flex-shrink:0;align-items:center}
+.opt-choose{font-size:9px;padding:2px 6px;border-radius:5px;cursor:pointer;white-space:nowrap}
+.opt-choose.active{background:var(--ac);color:#E8DFC8}
+.opt-choose:not(.active){background:var(--card);color:var(--ac2);border:1px solid var(--card-b)}
+.opt-btn{font-size:11px;padding:2px;opacity:.5;cursor:pointer}
+.opt-btn:hover{opacity:1}
+.add-opt{font-size:10px;color:var(--ac2);cursor:pointer;text-align:center;padding:4px;border:1px dashed var(--card-b);border-radius:6px;margin-top:4px}
+.add-opt:hover{background:var(--card)}
 .sortable-ghost{opacity:.4;transform:scale(.96)}
 .sortable-chosen{box-shadow:0 4px 16px rgba(0,0,0,.1)}
-.sortable-drag{box-shadow:0 8px 24px rgba(0,0,0,.15)}
-
-/* Section drag */
 .sec-ghost .sec-head{opacity:.4}
-
-/* Responsive */
-@media(min-width:520px){.container{padding:16px 20px}}
-
-/* Animations */
-.item,.sec-head{animation:itemIn .3s var(--ease)}
+.item,.sec-head,.item-wrap{animation:itemIn .3s var(--ease)}
 @keyframes itemIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:520px){.container{padding:16px 20px}}
 </style>
 </head>
 <body>
@@ -169,741 +141,303 @@ button{cursor:pointer;border:none;background:none}
 <script>
 (function(){
 'use strict';
-const e=React.createElement;
-const{useState,useEffect,useRef,useCallback,useMemo}=React;
-
-/* ── Firebase Config ── */
-/* REPLACE THIS with your Firebase project config */
-const firebaseConfig={
-  apiKey:"AIzaSyBMRwUntyyxEf_ipcRv6ixR6W87fVACyfY",
-  authDomain:"rose-valley-street-10b.firebaseapp.com",
-  databaseURL:"https://rose-valley-street-10b-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId:"rose-valley-street-10b",
-  storageBucket:"rose-valley-street-10b.firebasestorage.app",
-  messagingSenderId:"387411087",
-  appId:"1:387411087:web:eaba0d5da7fd70a15114fa"
-};
-
-let app,db;
-try{app=firebase.app()}catch(_){app=firebase.initializeApp(firebaseConfig)}
-db=firebase.database(app);
-
-/* ── Helpers ── */
+const e=React.createElement,{useState,useEffect,useRef,useMemo}=React;
+const firebaseConfig={apiKey:"AIzaSyBMRwUntyyxEf_ipcRv6ixR6W87fVACyfY",authDomain:"rose-valley-street-10b.firebaseapp.com",databaseURL:"https://rose-valley-street-10b-default-rtdb.europe-west1.firebasedatabase.app",projectId:"rose-valley-street-10b",storageBucket:"rose-valley-street-10b.firebasestorage.app",messagingSenderId:"387411087",appId:"1:387411087:web:eaba0d5da7fd70a15114fa"};
+let app,db;try{app=firebase.app()}catch(_){app=firebase.initializeApp(firebaseConfig)}db=firebase.database(app);
 function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function fmtKr(n){return n!=null&&n!==''?Number(n).toLocaleString('sv-SE')+' kr':''}
+function fmtKr(n){return n!=null&&n!==''&&n!==0?Number(n).toLocaleString('sv-SE')+' kr':''}
 function pct(a,b){return b>0?Math.round(a/b*100):0}
-function domainOf(url){try{return new URL(url).hostname.replace('www.','')}catch(_){return ''}}
+function domainOf(u){try{return new URL(u).hostname.replace('www.','')}catch(_){return''}}
 function today(){return new Date().toISOString().slice(0,10)}
+async function fetchOgData(url){try{const r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(url));const d=await r.json();const h=d.contents||'';const gM=p=>{const r1=new RegExp('<meta[^>]*property=["\']'+p+'["\'][^>]*content=["\']([^"\']+)["\']','i');const r2=new RegExp('<meta[^>]*content=["\']([^"\']+)["\'][^>]*property=["\']'+p+'["\']','i');return(h.match(r1)||h.match(r2)||[])[1]||''};const tM=h.match(/<title[^>]*>([^<]+)<\/title>/i);return{image:gM('og:image'),title:gM('og:title')||(tM?tM[1]:'')}}catch(_){return{image:'',title:''}}}
+async function hashPw(pw){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+function compressImage(file,maxW=200){return new Promise(res=>{const r=new FileReader();r.onload=ev=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');const s=Math.min(maxW/img.width,maxW/img.height,1);c.width=img.width*s;c.height=img.height*s;c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.7))};img.src=ev.target.result};r.readAsDataURL(file)})}
 
-async function fetchOgImage(url){
-  try{
-    const r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(url));
-    const d=await r.json();
-    const m=d.contents.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i);
-    if(m)return m[1];
-    const m2=d.contents.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i);
-    if(m2)return m2[1];
-  }catch(_){}
-  return null;
-}
-
-async function hashPw(pw){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-
-function compressImage(file,maxW=200){
-  return new Promise((res)=>{
-    const r=new FileReader();
-    r.onload=ev=>{
-      const img=new Image();
-      img.onload=()=>{
-        const c=document.createElement('canvas');
-        const s=Math.min(maxW/img.width,maxW/img.height,1);
-        c.width=img.width*s;c.height=img.height*s;
-        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-        res(c.toDataURL('image/jpeg',.7));
-      };
-      img.src=ev.target.result;
-    };
-    r.readAsDataURL(file);
-  });
-}
-
-/* ── Tap-to-zoom helper ── */
-function toggleZoom(ev){
-  ev.stopPropagation();
-  const thumb=ev.currentTarget;
-  const wasOpen=thumb.classList.contains('zoom-open');
-  document.querySelectorAll('.thumb.zoom-open').forEach(t=>t.classList.remove('zoom-open'));
-  if(!wasOpen)thumb.classList.add('zoom-open');
-}
-document.addEventListener('click',ev=>{if(!ev.target.closest('.thumb'))document.querySelectorAll('.thumb.zoom-open').forEach(t=>t.classList.remove('zoom-open'))});
-
-/* ── SVG Branch Component ── */
 function Branch({seed=0}){
-  const s=seed*137.5;
-  const pts=[];
-  let y=18;
-  for(let x=0;x<=350;x+=5){
-    y=18+Math.sin((x+s)*.02)*6+Math.sin((x+s)*.05)*4;
-    pts.push(x+','+y.toFixed(1));
-  }
-  const path='M'+pts.join(' L');
-  const leaves=[];const fruits=[];const emojis=[];
-  for(let i=0;i<8;i++){
-    const lx=30+i*42+(s%20);
-    const ly=18+Math.sin((lx+s)*.03)*5;
-    const rot=-20+((i+seed)%5)*10;
-    const isLight=(i+seed)%2===0;
-    leaves.push(e('ellipse',{key:'l'+i,cx:lx,cy:ly,rx:6,ry:2.8,fill:isLight?'#B5C49A':'#7A8A6A',opacity:isLight?.5:.4,transform:'rotate('+rot+' '+lx+' '+ly+')'}));
-  }
-  for(let i=0;i<3;i++){
-    const fx=60+i*110+((s*3)%30);
-    fruits.push(e('circle',{key:'f'+i,cx:fx,cy:18+Math.sin((fx+s)*.03)*4,r:3,fill:'#3A4A2A',opacity:.35}));
-  }
-  const e1x=100+((s*2)%150);const e2x=250+((s*3)%80);
-  emojis.push(e('text',{key:'em1',x:e1x,y:22,textAnchor:'middle',fontSize:14,opacity:.6},'🍋'));
-  emojis.push(e('text',{key:'em2',x:e2x,y:21,textAnchor:'middle',fontSize:13,opacity:.55},'🫒'));
-
-  return e('svg',{className:'branch',viewBox:'0 0 350 36',height:36,preserveAspectRatio:'none'},
-    e('path',{d:path,stroke:'#7A8A6A',strokeWidth:1.2,fill:'none',opacity:.45}),
-    ...leaves,...fruits,...emojis
-  );
+  const s=seed*137.5,pts=[];
+  for(let x=0;x<=350;x+=5){pts.push(x+','+(18+Math.sin((x+s)*.02)*7+Math.sin((x+s)*.05)*4).toFixed(1))}
+  const leaves=[],fruits=[],emojis=[];
+  for(let i=0;i<10;i++){const lx=20+i*34+(s%15),ly=18+Math.sin((lx+s)*.03)*5,rot=-25+((i+seed)%5)*12;
+    leaves.push(e('ellipse',{key:'l'+i,cx:lx,cy:ly,rx:7,ry:3,fill:(i+seed)%2===0?'#8AB83A':'#5A8A3A',opacity:(i+seed)%2===0?.65:.55,transform:'rotate('+rot+' '+lx+' '+ly+')'}))}
+  for(let i=0;i<4;i++){const fx=45+i*85+((s*3)%25);fruits.push(e('circle',{key:'f'+i,cx:fx,cy:18+Math.sin((fx+s)*.03)*4,r:3.5,fill:'#3A5A2A',opacity:.5}))}
+  emojis.push(e('text',{key:'e1',x:70+((s*2)%120),y:24,textAnchor:'middle',fontSize:15,opacity:.8},'🍋'));
+  emojis.push(e('text',{key:'e2',x:200+((s*3)%60),y:22,textAnchor:'middle',fontSize:13,opacity:.75},'🫒'));
+  emojis.push(e('text',{key:'e3',x:310+((s)%30),y:23,textAnchor:'middle',fontSize:seed%2===0?14:12,opacity:.7},seed%2===0?'🍋':'🫒'));
+  return e('svg',{className:'branch',viewBox:'0 0 350 38',height:38,preserveAspectRatio:'none'},
+    e('path',{d:'M'+pts.join(' L'),stroke:'#5A8A3A',strokeWidth:1.5,fill:'none',opacity:.55}),...leaves,...fruits,...emojis);
 }
-
-/* ── Checkmark SVG ── */
 function Tick(){return e('svg',{viewBox:'0 0 16 16',width:14,height:14},e('polyline',{points:'3,8 7,12 13,4',fill:'none',stroke:'#FDFAF2',strokeWidth:2,strokeLinecap:'round'}))}
+function Mdl({children,onClose}){return e('div',{className:'modal-overlay',onClick:ev=>{if(ev.target===ev.currentTarget)onClose()}},e('div',{className:'modal',onClick:ev=>ev.stopPropagation()},children))}
+function ImgMdl({src,onClose}){return e('div',{className:'img-modal',onClick:onClose},e('img',{src,alt:'',onClick:ev=>ev.stopPropagation()}))}
 
-/* ── Modal Component ── */
-function Modal({children,onClose,page}){
-  return e('div',{className:'modal-overlay','data-page':page,onClick:ev=>{if(ev.target===ev.currentTarget)onClose()}},
-    e('div',{className:'modal',onClick:ev=>ev.stopPropagation()},children)
-  );
-}
-
-/* ── Password Screen ── */
-function PasswordScreen({onAuth}){
-  const[pw,setPw]=useState('');
-  const[err,setErr]=useState('');
-  const[loading,setLoading]=useState(false);
-  const[isSetup,setIsSetup]=useState(null);
-
-  useEffect(()=>{
-    db.ref('password').once('value').then(snap=>{
-      setIsSetup(!!snap.val());
-    }).catch(()=>setIsSetup(false));
-  },[]);
-
-  const handleSubmit=async()=>{
-    if(!pw.trim())return;
-    setLoading(true);setErr('');
-    const h=await hashPw(pw.trim());
-    if(isSetup){
-      const snap=await db.ref('password').once('value');
-      if(snap.val()===h){
-        sessionStorage.setItem('auth','1');
-        onAuth();
-      }else{setErr('Fel lösenord. Försök igen.');setLoading(false)}
-    }else{
-      await db.ref('password').set(h);
-      sessionStorage.setItem('auth','1');
-      onAuth();
-    }
-  };
-
-  if(isSetup===null)return e('div',{className:'pw-screen'},e('div',{style:{color:'#7A8A6A'}},'Laddar...'));
-
+function PwScreen({onAuth}){
+  const[pw,setPw]=useState('');const[err,setErr]=useState('');const[ld,setLd]=useState(false);const[setup,setSetup]=useState(null);
+  useEffect(()=>{db.ref('password').once('value').then(s=>setSetup(!!s.val())).catch(()=>setSetup(false))},[]);
+  const go=async()=>{if(!pw.trim())return;setLd(true);setErr('');const h=await hashPw(pw.trim());
+    if(setup){const s=await db.ref('password').once('value');if(s.val()===h){sessionStorage.setItem('auth','1');onAuth()}else{setErr('Fel lösenord.');setLd(false)}}
+    else{await db.ref('password').set(h);sessionStorage.setItem('auth','1');onAuth()}};
+  if(setup===null)return e('div',{className:'pw-screen'},e('div',{style:{color:'#7A8A6A'}},'Laddar...'));
   return e('div',{className:'pw-screen'},
-    e('span',{className:'pw-decos',style:{top:40,left:30,transform:'rotate(-15deg)'}},'🍋'),
-    e('span',{className:'pw-decos',style:{top:60,right:40,transform:'rotate(20deg)'}},'🫒'),
-    e('span',{className:'pw-decos',style:{bottom:80,left:50,transform:'rotate(10deg)'}},'🫒'),
-    e('span',{className:'pw-decos',style:{bottom:50,right:60,transform:'rotate(-20deg)'}},'🍋'),
-    e('div',{className:'pw-box'},
-      e('h1',null,'🏡'),
-      e('h1',null,'Rose Valley Street 10b'),
-      e('div',{className:'sub'},isSetup?'Ange lösenord för att fortsätta':'Välj ett lösenord för att komma igång'),
-      e('input',{type:'password',placeholder:'Lösenord...',value:pw,onChange:ev=>setPw(ev.target.value),onKeyDown:ev=>{if(ev.key==='Enter')handleSubmit()},autoFocus:true}),
-      e('button',{onClick:handleSubmit,disabled:loading},loading?'...':isSetup?'Logga in':'Skapa lösenord'),
-      err&&e('div',{className:'err'},err)
-    )
-  );
+    e('span',{className:'pw-decos',style:{top:40,left:30,transform:'rotate(-15deg)'}},'🍋'),e('span',{className:'pw-decos',style:{top:60,right:40,transform:'rotate(20deg)'}},'🫒'),
+    e('span',{className:'pw-decos',style:{bottom:120,left:50,transform:'rotate(10deg)'}},'🫒'),e('span',{className:'pw-decos',style:{bottom:80,right:60,transform:'rotate(-20deg)'}},'🍋'),
+    e('div',{className:'pw-box'},e('h1',null,'🏡'),e('h1',null,'Rose Valley Street 10b'),
+      e('div',{className:'sub'},setup?'Ange lösenord':'Välj ett lösenord'),
+      e('input',{type:'password',placeholder:'Lösenord...',value:pw,onChange:ev=>setPw(ev.target.value),onKeyDown:ev=>{if(ev.key==='Enter')go()},autoFocus:true}),
+      e('button',{onClick:go,disabled:ld},ld?'...':setup?'Logga in':'Skapa lösenord'),err&&e('div',{className:'err'},err)));
 }
 
-/* ── Main App ── */
-function MainApp(){
-  const[page,setPage]=useState('buy');
-  const[data,setData]=useState({buying:{sections:{}},selling:{items:{}},fixing:{items:{}}});
-  const[search,setSearch]=useState('');
-  const[modal,setModal]=useState(null);
+function Main(){
+  const[page,setPage]=useState('buy');const[data,setData]=useState({buying:{sections:{}},selling:{items:{}},fixing:{items:{}}});
+  const[search,setSearch]=useState('');const[modal,setModal]=useState(null);const[zoomImg,setZoomImg]=useState(null);
+  useEffect(()=>{const ref=db.ref('/');ref.on('value',s=>{const v=s.val()||{};setData({buying:v.buying||{sections:{}},selling:v.selling||{items:{}},fixing:v.fixing||{items:{}}})});return()=>ref.off()},[]);
 
-  useEffect(()=>{
-    const ref=db.ref('/');
-    ref.on('value',snap=>{
-      const v=snap.val()||{};
-      setData({
-        buying:v.buying||{sections:{}},
-        selling:v.selling||{items:{}},
-        fixing:v.fixing||{items:{}}
-      });
-    });
-    return()=>ref.off();
-  },[]);
+  const buyStats=useMemo(()=>{let t=0,p=0,b=0,s=0;Object.values(data.buying.sections||{}).forEach(sec=>Object.values(sec.items||{}).forEach(i=>{t++;if(i.purchased){p++;s+=Number(i.price)||0}b+=Number(i.budget)||0}));return{total:t,purchased:p,budget:b,spent:s}},[data.buying]);
+  const secSt=sec=>{const it=Object.values(sec.items||{});return{total:it.length,purchased:it.filter(i=>i.purchased).length,budget:it.reduce((s,i)=>s+(Number(i.budget)||0),0),spent:it.filter(i=>i.purchased).reduce((s,i)=>s+(Number(i.price)||0),0)}};
+  const sellStats=useMemo(()=>{const it=Object.values(data.selling.items||{});return{total:it.length,sold:it.filter(i=>i.status==='sold').length,expected:it.reduce((s,i)=>s+(Number(i.price)||0),0),received:it.filter(i=>i.status==='sold').reduce((s,i)=>s+(Number(i.price)||0),0)}},[data.selling]);
+  const fixStats=useMemo(()=>{const it=Object.values(data.fixing.items||{});return{total:it.length,done:it.filter(i=>i.status==='done').length}},[data.fixing]);
 
-  /* ── Buy Page Helpers ── */
-  const buyStats=useMemo(()=>{
-    const secs=data.buying.sections||{};
-    let total=0,purchased=0,budget=0,spent=0;
-    Object.values(secs).forEach(s=>{
-      Object.values(s.items||{}).forEach(it=>{
-        total++;
-        if(it.purchased){purchased++;spent+=Number(it.price)||0}
-        budget+=Number(it.budget)||0;
-      });
-    });
-    return{total,purchased,budget,spent};
-  },[data.buying]);
+  const addSec=(n,em)=>{const id=genId();db.ref('buying/sections/'+id).set({name:n,emoji:em||'',order:Object.keys(data.buying.sections||{}).length,items:{}})};
+  const updSec=(id,u)=>db.ref('buying/sections/'+id).update(u);
+  const delSec=id=>db.ref('buying/sections/'+id).remove();
+  const addBI=(sid,it)=>{const id=genId();const items=data.buying.sections[sid]?.items||{};db.ref('buying/sections/'+sid+'/items/'+id).set({...it,order:Object.keys(items).length,purchased:false});if(it.link)fetchOgData(it.link).then(d=>{if(d.image)db.ref('buying/sections/'+sid+'/items/'+id+'/imageUrl').set(d.image)})};
+  const updBI=(sid,iid,u)=>{db.ref('buying/sections/'+sid+'/items/'+iid).update(u);if(u.link)fetchOgData(u.link).then(d=>{if(d.image)db.ref('buying/sections/'+sid+'/items/'+iid+'/imageUrl').set(d.image)})};
+  const delBI=(sid,iid)=>db.ref('buying/sections/'+sid+'/items/'+iid).remove();
+  const togBI=(sid,iid,v)=>db.ref('buying/sections/'+sid+'/items/'+iid+'/purchased').set(v);
+  const moveBI=(from,iid,to)=>{const it=data.buying.sections[from]?.items?.[iid];if(!it||from===to)return;const toIt=data.buying.sections[to]?.items||{};db.ref('buying/sections/'+to+'/items/'+iid).set({...it,order:Object.keys(toIt).length});db.ref('buying/sections/'+from+'/items/'+iid).remove()};
 
-  const secStats=(sec)=>{
-    const items=Object.values(sec.items||{});
-    const total=items.length;
-    const purchased=items.filter(i=>i.purchased).length;
-    const budget=items.reduce((s,i)=>s+(Number(i.budget)||0),0);
-    const spent=items.filter(i=>i.purchased).reduce((s,i)=>s+(Number(i.price)||0),0);
-    return{total,purchased,budget,spent};
-  };
+  const addOpt=(sid,iid,opt)=>{const oid=genId();db.ref('buying/sections/'+sid+'/items/'+iid+'/options/'+oid).set(opt);if(opt.url)fetchOgData(opt.url).then(d=>{const u={};if(d.image)u.imageUrl=d.image;if(d.title&&!opt.name)u.name=d.title;if(Object.keys(u).length)db.ref('buying/sections/'+sid+'/items/'+iid+'/options/'+oid).update(u)})};
+  const updOpt=(sid,iid,oid,u)=>db.ref('buying/sections/'+sid+'/items/'+iid+'/options/'+oid).update(u);
+  const delOpt=(sid,iid,oid)=>{db.ref('buying/sections/'+sid+'/items/'+iid+'/options/'+oid).remove();if(data.buying.sections[sid]?.items?.[iid]?.chosenOption===oid)db.ref('buying/sections/'+sid+'/items/'+iid+'/chosenOption').remove()};
+  const chooseOpt=(sid,iid,oid)=>{const it=data.buying.sections[sid]?.items?.[iid];const opt=it?.options?.[oid];const u={chosenOption:it?.chosenOption===oid?null:oid};if(opt&&it?.chosenOption!==oid)u.price=opt.price||it.price;db.ref('buying/sections/'+sid+'/items/'+iid).update(u)};
 
-  /* ── Sell Page Helpers ── */
-  const sellStats=useMemo(()=>{
-    const items=Object.values(data.selling.items||{});
-    const total=items.length;
-    const sold=items.filter(i=>i.status==='sold').length;
-    const expected=items.reduce((s,i)=>s+(Number(i.price)||0),0);
-    const received=items.filter(i=>i.status==='sold').reduce((s,i)=>s+(Number(i.price)||0),0);
-    return{total,sold,expected,received};
-  },[data.selling]);
+  const addSI=it=>{const id=genId();db.ref('selling/items/'+id).set({...it,order:Object.keys(data.selling.items||{}).length,status:'unlisted'})};
+  const updSI=(id,u)=>db.ref('selling/items/'+id).update(u);const delSI=id=>db.ref('selling/items/'+id).remove();
+  const addFI=it=>{const id=genId();db.ref('fixing/items/'+id).set({...it,order:Object.keys(data.fixing.items||{}).length,status:'todo',dateAdded:today()})};
+  const updFI=(id,u)=>db.ref('fixing/items/'+id).update(u);const delFI=id=>db.ref('fixing/items/'+id).remove();
 
-  /* ── Fix Page Helpers ── */
-  const fixStats=useMemo(()=>{
-    const items=Object.values(data.fixing.items||{});
-    const total=items.length;
-    const done=items.filter(i=>i.status==='done').length;
-    return{total,done};
-  },[data.fixing]);
+  const reBI=(sid,o,n)=>{const en=Object.entries(data.buying.sections[sid]?.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const[m]=en.splice(o,1);en.splice(n,0,m);const u={};en.forEach(([id],i)=>{u['buying/sections/'+sid+'/items/'+id+'/order']=i});db.ref().update(u)};
+  const reSI=(o,n)=>{const en=Object.entries(data.selling.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const[m]=en.splice(o,1);en.splice(n,0,m);const u={};en.forEach(([id],i)=>{u['selling/items/'+id+'/order']=i});db.ref().update(u)};
+  const reFI=(o,n)=>{const en=Object.entries(data.fixing.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const[m]=en.splice(o,1);en.splice(n,0,m);const u={};en.forEach(([id],i)=>{u['fixing/items/'+id+'/order']=i});db.ref().update(u)};
+  const reSec=(o,n)=>{const en=Object.entries(data.buying.sections||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));const[m]=en.splice(o,1);en.splice(n,0,m);const u={};en.forEach(([id],i)=>{u['buying/sections/'+id+'/order']=i});db.ref().update(u)};
 
-  /* ── CRUD Operations ── */
-  const addSection=(name,emoji)=>{
-    const id=genId();
-    const secs=data.buying.sections||{};
-    const order=Object.keys(secs).length;
-    db.ref('buying/sections/'+id).set({name,emoji:emoji||'',order,items:{}});
-  };
-
-  const updateSection=(secId,updates)=>{db.ref('buying/sections/'+secId).update(updates)};
-  const deleteSection=(secId)=>{db.ref('buying/sections/'+secId).remove()};
-
-  const addBuyItem=(secId,item)=>{
-    const id=genId();
-    const items=data.buying.sections[secId]?.items||{};
-    const order=Object.keys(items).length;
-    db.ref('buying/sections/'+secId+'/items/'+id).set({...item,order,purchased:false});
-    if(item.link){fetchOgImage(item.link).then(img=>{if(img)db.ref('buying/sections/'+secId+'/items/'+id+'/imageUrl').set(img)})}
-  };
-  const updateBuyItem=(secId,itemId,updates)=>{
-    db.ref('buying/sections/'+secId+'/items/'+itemId).update(updates);
-    if(updates.link){fetchOgImage(updates.link).then(img=>{if(img)db.ref('buying/sections/'+secId+'/items/'+itemId+'/imageUrl').set(img)})}
-  };
-  const deleteBuyItem=(secId,itemId)=>{db.ref('buying/sections/'+secId+'/items/'+itemId).remove()};
-  const toggleBuyItem=(secId,itemId,val)=>{db.ref('buying/sections/'+secId+'/items/'+itemId+'/purchased').set(val)};
-
-  const addSellItem=(item)=>{
-    const id=genId();
-    const items=data.selling.items||{};
-    const order=Object.keys(items).length;
-    db.ref('selling/items/'+id).set({...item,order,status:'unlisted'});
-  };
-  const updateSellItem=(itemId,updates)=>{db.ref('selling/items/'+itemId).update(updates)};
-  const deleteSellItem=(itemId)=>{db.ref('selling/items/'+itemId).remove()};
-
-  const addFixItem=(item)=>{
-    const id=genId();
-    const items=data.fixing.items||{};
-    const order=Object.keys(items).length;
-    db.ref('fixing/items/'+id).set({...item,order,status:'todo',dateAdded:today()});
-  };
-  const updateFixItem=(itemId,updates)=>{db.ref('fixing/items/'+itemId).update(updates)};
-  const deleteFixItem=(itemId)=>{db.ref('fixing/items/'+itemId).remove()};
-
-  /* ── Reorder ── */
-  const reorderBuyItems=(secId,oldIdx,newIdx)=>{
-    const sec=data.buying.sections[secId];
-    if(!sec)return;
-    const entries=Object.entries(sec.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
-    const[moved]=entries.splice(oldIdx,1);
-    entries.splice(newIdx,0,moved);
-    const updates={};
-    entries.forEach(([id],i)=>{updates['buying/sections/'+secId+'/items/'+id+'/order']=i});
-    db.ref().update(updates);
-  };
-
-  const reorderSellItems=(oldIdx,newIdx)=>{
-    const entries=Object.entries(data.selling.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
-    const[moved]=entries.splice(oldIdx,1);
-    entries.splice(newIdx,0,moved);
-    const updates={};
-    entries.forEach(([id],i)=>{updates['selling/items/'+id+'/order']=i});
-    db.ref().update(updates);
-  };
-
-  const reorderFixItems=(oldIdx,newIdx)=>{
-    const entries=Object.entries(data.fixing.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
-    const[moved]=entries.splice(oldIdx,1);
-    entries.splice(newIdx,0,moved);
-    const updates={};
-    entries.forEach(([id],i)=>{updates['fixing/items/'+id+'/order']=i});
-    db.ref().update(updates);
-  };
-
-  const reorderSections=(oldIdx,newIdx)=>{
-    const entries=Object.entries(data.buying.sections||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
-    const[moved]=entries.splice(oldIdx,1);
-    entries.splice(newIdx,0,moved);
-    const updates={};
-    entries.forEach(([id],i)=>{updates['buying/sections/'+id+'/order']=i});
-    db.ref().update(updates);
-  };
-
-  /* ── Filter by search ── */
-  const matchSearch=(name)=>!search||name.toLowerCase().includes(search.toLowerCase());
+  const ms=n=>!search||n.toLowerCase().includes(search.toLowerCase());
+  const allSec=Object.entries(data.buying.sections||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
 
   return e('div',{className:'app','data-page':page},
     e('div',{className:'container'},
-      e('div',{className:'hdr'},
-        e('h1',null,'Rose Valley Street 10b 🏡'),
-      ),
+      e('div',{className:'hdr'},e('h1',null,'Rose Valley Street 10b 🏡')),
       e('div',{className:'tabs'},
-        e('div',{className:'tab'+(page==='buy'?' active':''),onClick:()=>setPage('buy')},'🫒 Köpa'),
-        e('div',{className:'tab'+(page==='sell'?' active':''),onClick:()=>setPage('sell')},'🍋 Sälja'),
-        e('div',{className:'tab'+(page==='fix'?' active':''),onClick:()=>setPage('fix')},'🔧 Att fixa'),
-      ),
-
-      page==='buy'&&e(BuyPage,{data:data.buying,stats:buyStats,secStats,search,setSearch,matchSearch,addSection,updateSection,deleteSection,addBuyItem,updateBuyItem,deleteBuyItem,toggleBuyItem,reorderBuyItems,reorderSections,setModal,modal}),
-      page==='sell'&&e(SellPage,{data:data.selling,stats:sellStats,search,setSearch,matchSearch,addSellItem,updateSellItem,deleteSellItem,reorderSellItems,setModal,modal}),
-      page==='fix'&&e(FixPage,{data:data.fixing,stats:fixStats,search,setSearch,matchSearch,addFixItem,updateFixItem,deleteFixItem,reorderFixItems,setModal,modal}),
-    ),
-
-    e('div',{className:'fab',onClick:()=>{
-      if(page==='buy'){
-        const secs=Object.keys(data.buying.sections||{});
-        if(secs.length===0){setModal({type:'addSection'})}
-        else{setModal({type:'addBuyItem',secId:secs[0]})}
-      }else if(page==='sell'){setModal({type:'addSellItem'})}
-      else{setModal({type:'addFixItem'})}
-    }},e('svg',{viewBox:'0 0 24 24',fill:'none'},e('line',{x1:12,y1:5,x2:12,y2:19}),e('line',{x1:5,y1:12,x2:19,y2:12}))),
-
-    modal&&e(ModalRouter,{modal,setModal,page,data,addSection,updateSection,deleteSection,addBuyItem,updateBuyItem,deleteBuyItem,addSellItem,updateSellItem,deleteSellItem,addFixItem,updateFixItem,deleteFixItem})
-  );
+        e('div',{className:'tab'+(page==='buy'?' active':''),onClick:()=>{setPage('buy');setSearch('')}},'🫒 Köpa'),
+        e('div',{className:'tab'+(page==='sell'?' active':''),onClick:()=>{setPage('sell');setSearch('')}},'🍋 Sälja'),
+        e('div',{className:'tab'+(page==='fix'?' active':''),onClick:()=>{setPage('fix');setSearch('')}},'🔧 Att fixa')),
+      page==='buy'&&e(BuyPg,{data:data.buying,stats:buyStats,secSt,search,setSearch,ms,togBI,reBI,reSec,setModal,setZoomImg,chooseOpt,delOpt,allSec}),
+      page==='sell'&&e(SellPg,{data:data.selling,stats:sellStats,search,setSearch,ms,reSI,setModal,setZoomImg}),
+      page==='fix'&&e(FixPg,{data:data.fixing,stats:fixStats,search,setSearch,ms,reFI,setModal,setZoomImg})),
+    e('div',{className:'fab',onClick:()=>{if(page==='buy'){const s=Object.keys(data.buying.sections||{});if(!s.length)setModal({type:'aS'});else setModal({type:'aBI',secId:s[0]})}else if(page==='sell')setModal({type:'aSI'});else setModal({type:'aFI'})}},
+      e('svg',{viewBox:'0 0 24 24',fill:'none'},e('line',{x1:12,y1:5,x2:12,y2:19}),e('line',{x1:5,y1:12,x2:19,y2:12}))),
+    zoomImg&&e(ImgMdl,{src:zoomImg,onClose:()=>setZoomImg(null)}),
+    modal&&e(MdlR,{modal,setModal,data,allSec,addSec,updSec,delSec,addBI,updBI,delBI,moveBI,addSI,updSI,delSI,addFI,updFI,delFI,addOpt,updOpt,delOpt}));
 }
 
-/* ── Buy Page ── */
-function BuyPage({data,stats,secStats,search,setSearch,matchSearch,addSection,updateSection,deleteSection,addBuyItem,updateBuyItem,deleteBuyItem,toggleBuyItem,reorderBuyItems,reorderSections,setModal}){
-  const secListRef=useRef();
-
-  useEffect(()=>{
-    if(!secListRef.current)return;
-    const s=Sortable.create(secListRef.current,{
-      handle:'.sec-drag',animation:150,ghostClass:'sec-ghost',
-      onEnd:ev=>reorderSections(ev.oldIndex,ev.newIndex)
-    });
-    return()=>s.destroy();
-  },[Object.keys(data.sections||{}).length]);
-
-  const sections=Object.entries(data.sections||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
-
+function BuyPg({data,stats,secSt,search,setSearch,ms,togBI,reBI,reSec,setModal,setZoomImg,chooseOpt,delOpt,allSec}){
+  const ref=useRef();
+  useEffect(()=>{if(!ref.current)return;const s=Sortable.create(ref.current,{handle:'.sec-drag',animation:150,ghostClass:'sec-ghost',onEnd:ev=>reSec(ev.oldIndex,ev.newIndex)});return()=>s.destroy()},[Object.keys(data.sections||{}).length]);
+  const secs=Object.entries(data.sections||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
   return e(React.Fragment,null,
     e('div',{className:'summary'},
-      e('span',{className:'deco',style:{top:-2,right:8,transform:'rotate(18deg)'}},'🍋'),
-      e('span',{className:'deco',style:{bottom:0,left:8,transform:'rotate(-10deg)'}},'🫒'),
+      e('span',{className:'deco',style:{top:-4,right:6,fontSize:26,opacity:.4,transform:'rotate(18deg)'}},'🍋'),
+      e('span',{className:'deco',style:{bottom:-2,left:6,fontSize:24,opacity:.4,transform:'rotate(-10deg)'}},'🫒'),
+      e('span',{className:'deco',style:{top:8,left:'42%',fontSize:18,opacity:.25,transform:'rotate(8deg)'}},'🍋'),
       e('div',{className:'row'},e('span',null,'Saker'),e('span',{className:'val',style:{color:'var(--ac3)'}},stats.purchased+' / '+stats.total+' köpta ✓')),
       e('div',{className:'pb'},e('div',{className:'fill',style:{width:pct(stats.purchased,stats.total)+'%'}})),
       e('div',{className:'row'},e('span',null,'Budget: '+fmtKr(stats.budget)),e('span',{className:'val',style:{color:'var(--pb2-a)'}},'Spenderat: '+fmtKr(stats.spent))),
-      e('div',{className:'pb'},e('div',{className:'fill alt',style:{width:pct(stats.spent,stats.budget)+'%'}})),
-    ),
+      e('div',{className:'pb'},e('div',{className:'fill alt',style:{width:pct(stats.spent,stats.budget)+'%'}}))),
+    e(Branch,{seed:99}),
     e('div',{className:'search-wrap'},e('input',{className:'search',placeholder:'Sök bland alla saker...',value:search,onChange:ev=>setSearch(ev.target.value)})),
-    e('div',{ref:secListRef},
-      sections.map(([secId,sec],si)=>e(BuySection,{key:secId,secId,sec,secStats:secStats(sec),matchSearch,toggleBuyItem,reorderBuyItems,setModal,isLast:si===sections.length-1,branchSeed:si}))
-    ),
-    e('div',{className:'add-sec',onClick:()=>setModal({type:'addSection'})},'🫒 + Lägg till ny sektion')
-  );
+    e('div',{ref},secs.map(([sid,sec],i)=>e(BuySec,{key:sid,sid,sec,ss:secSt(sec),ms,togBI,reBI,setModal,setZoomImg,chooseOpt,delOpt,allSec,last:i===secs.length-1,seed:i}))),
+    e('div',{className:'add-sec',onClick:()=>setModal({type:'aS'})},'🫒 + Lägg till ny sektion'));
 }
 
-/* ── Buy Section ── */
-function BuySection({secId,sec,secStats:ss,matchSearch,toggleBuyItem,reorderBuyItems,setModal,isLast,branchSeed}){
-  const[open,setOpen]=useState(true);
-  const listRef=useRef();
-
-  useEffect(()=>{
-    if(!listRef.current||!open)return;
-    const s=Sortable.create(listRef.current,{
-      handle:'.drag',animation:150,ghostClass:'sortable-ghost',
-      onEnd:ev=>reorderBuyItems(secId,ev.oldIndex,ev.newIndex)
-    });
-    return()=>s.destroy();
-  },[open,Object.keys(sec.items||{}).length]);
-
-  const items=Object.entries(sec.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0)).filter(([,it])=>matchSearch(it.name||''));
-
+function BuySec({sid,sec,ss,ms,togBI,reBI,setModal,setZoomImg,chooseOpt,delOpt,allSec,last,seed}){
+  const[open,setOpen]=useState(true);const ref=useRef();
+  useEffect(()=>{if(!ref.current||!open)return;
+    const s=Sortable.create(ref.current,{handle:'.drag',animation:150,ghostClass:'sortable-ghost',group:'items',
+      onEnd:ev=>{const from=ev.from.dataset.sid,to=ev.to.dataset.sid;
+        if(from===to){reBI(sid,ev.oldIndex,ev.newIndex)}else{
+          const fSec=allSec.find(([id])=>id===from);if(!fSec)return;
+          const fItems=Object.entries(fSec[1].items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
+          const[iid,item]=fItems[ev.oldIndex]||[];if(!iid)return;
+          const toSec=allSec.find(([id])=>id===to);const toItems=Object.entries(toSec?.[1]?.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
+          db.ref('buying/sections/'+to+'/items/'+iid).set({...item,order:ev.newIndex});
+          db.ref('buying/sections/'+from+'/items/'+iid).remove();
+          const u={};fItems.filter(([id])=>id!==iid).forEach(([id],i)=>{u['buying/sections/'+from+'/items/'+id+'/order']=i});
+          toItems.splice(ev.newIndex,0,[iid,item]);toItems.forEach(([id],i)=>{u['buying/sections/'+to+'/items/'+id+'/order']=i});
+          db.ref().update(u)}}});return()=>s.destroy()},[open,JSON.stringify(Object.keys(sec.items||{})),allSec.length]);
+  const items=Object.entries(sec.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0)).filter(([,i])=>ms(i.name||''));
   return e(React.Fragment,null,
     e('div',{className:'sec-head',onClick:()=>setOpen(!open)},
-      e('div',{className:'left'},
-        e('span',{className:'sec-drag',style:{cursor:'grab',marginRight:2,opacity:.5},onClick:ev=>ev.stopPropagation()},'⠿'),
-        e('span',{className:'title'},(sec.emoji?sec.emoji+' ':'')+sec.name),
-        e('span',{className:'badge'},ss.purchased+'/'+ss.total),
-      ),
-      e('span',{className:'sec-edit',onClick:ev=>{ev.stopPropagation();setModal({type:'editSection',secId,name:sec.name,emoji:sec.emoji})}},'✏️'),
-      e('span',{className:'chev'+(open?'':' collapsed')},'▾'),
-    ),
+      e('div',{className:'left'},e('span',{className:'sec-drag',style:{cursor:'grab',marginRight:2,opacity:.5},onClick:ev=>ev.stopPropagation()},'⠿'),
+        e('span',{className:'title'},(sec.emoji?sec.emoji+' ':'')+sec.name),e('span',{className:'badge'},ss.purchased+'/'+ss.total)),
+      e('span',{className:'sec-edit',onClick:ev=>{ev.stopPropagation();setModal({type:'eS',secId:sid,name:sec.name,emoji:sec.emoji})}},'✏️'),
+      e('span',{className:'chev'+(open?'':' collapsed')},'▾')),
     open&&e(React.Fragment,null,
-      e('div',{className:'sec-stats'},
-        e('span',null,'Budget: '+fmtKr(ss.budget)),
-        e('span',null,'Köpt: '+fmtKr(ss.spent)),
-      ),
-      e('div',{ref:listRef},
-        items.map(([itemId,item])=>e(BuyItem,{key:itemId,secId,itemId,item,toggleBuyItem,setModal}))
-      ),
-      e('div',{style:{textAlign:'center',padding:'2px 0'}},
-        e('span',{style:{fontSize:11,color:'var(--ac2)',cursor:'pointer',opacity:.6},onClick:()=>setModal({type:'addBuyItem',secId})},'+ lägg till')
-      ),
-    ),
-    !isLast&&e(Branch,{seed:branchSeed})
-  );
+      e('div',{className:'sec-stats'},e('span',null,'Budget: '+fmtKr(ss.budget)),e('span',null,'Köpt: '+fmtKr(ss.spent))),
+      e('div',{ref,'data-sid':sid},items.map(([iid,item])=>e(BuyIt,{key:iid,sid,iid,item,togBI,setModal,setZoomImg,chooseOpt,delOpt}))),
+      e('div',{style:{textAlign:'center',padding:'2px 0'}},e('span',{style:{fontSize:11,color:'var(--ac2)',cursor:'pointer',opacity:.6},onClick:()=>setModal({type:'aBI',secId:sid})},'+ lägg till'))),
+    !last&&e(Branch,{seed}));
 }
 
-/* ── Buy Item ── */
-function BuyItem({secId,itemId,item,toggleBuyItem,setModal}){
-  return e('div',{className:'item'+(item.purchased?' done':'')},
-    e('span',{className:'drag'},'⠿'),
-    e('div',{className:'thumb',onClick:item.imageUrl?toggleZoom:undefined},
-      item.imageUrl?e(React.Fragment,null,
-        e('img',{src:item.imageUrl,alt:'',loading:'lazy'}),
-        e('div',{className:'thumb-zoom'},e('img',{src:item.imageUrl,alt:''}))
-      ):
-      item.emoji?item.emoji:null
-    ),
-    e('div',{className:'info'},
-      e('div',{className:'item-name'},item.name),
-      e('div',{className:'meta'},
-        item.budget&&e('span',null,'Budget: '+fmtKr(item.budget)),
-        item.price&&e('span',null,(item.purchased?'Betalat':'Pris')+': '+fmtKr(item.price)),
-      ),
-      item.link&&e('div',{className:'link-tag',onClick:()=>window.open(item.link,'_blank')},domainOf(item.link)),
-    ),
-    e('span',{className:'edit-btn',onClick:()=>setModal({type:'editBuyItem',secId,itemId,item})},'✏️'),
-    e('div',{className:'check'+(item.purchased?' checked':''),onClick:()=>toggleBuyItem(secId,itemId,!item.purchased)},
-      item.purchased&&e(Tick)
-    ),
-  );
+function BuyIt({sid,iid,item,togBI,setModal,setZoomImg,chooseOpt,delOpt}){
+  const[exp,setExp]=useState(false);const opts=Object.entries(item.options||{});const n=opts.length;
+  return e('div',{className:'item-wrap'},
+    e('div',{className:'item'+(item.purchased?' done':''),style:{borderRadius:0}},
+      e('span',{className:'drag'},'⠿'),
+      e('div',{className:'thumb',onClick:()=>{if(item.imageUrl)setZoomImg(item.imageUrl)}},item.imageUrl?e('img',{src:item.imageUrl,alt:'',loading:'lazy'}):item.emoji||null),
+      e('div',{className:'info'},e('div',{className:'item-name'},item.name),
+        e('div',{className:'meta'},item.budget?e('span',null,'Budget: '+fmtKr(item.budget)):null,item.price?e('span',null,(item.purchased?'Betalat':'Pris')+': '+fmtKr(item.price)):null),
+        item.link&&e('div',{className:'link-tag',onClick:()=>window.open(item.link,'_blank')},domainOf(item.link))),
+      n>0&&e('span',{className:'opts-count',onClick:()=>setExp(!exp)},n+' alt. '+(exp?'▴':'▾')),
+      e('span',{className:'edit-btn',onClick:()=>setModal({type:'eBI',secId:sid,itemId:iid,item})},'✏️'),
+      e('div',{className:'check'+(item.purchased?' checked':''),onClick:()=>togBI(sid,iid,!item.purchased)},item.purchased&&e(Tick))),
+    (exp&&n>0)&&e('div',{className:'opts-area'},
+      opts.sort((a,b)=>(a[1].order||0)-(b[1].order||0)).map(([oid,opt])=>{const ch=item.chosenOption===oid;
+        return e('div',{key:oid,className:'opt-card'+(ch?' chosen':'')},
+          e('div',{className:'opt-img',onClick:()=>{if(opt.imageUrl)setZoomImg(opt.imageUrl)}},opt.imageUrl?e('img',{src:opt.imageUrl,alt:''}):e('span',{style:{fontSize:11,color:'var(--ac2)'}},'📷')),
+          e('div',{className:'opt-info'},e('div',{className:'opt-name'},opt.name||'Namnlös'),opt.price?e('div',{className:'opt-price'},fmtKr(opt.price)):null,
+            opt.note&&e('div',{className:'opt-note'},opt.note),opt.url&&e('div',{className:'opt-link',onClick:()=>window.open(opt.url,'_blank')},domainOf(opt.url))),
+          e('div',{className:'opt-btns'},
+            e('span',{className:'opt-choose'+(ch?' active':''),onClick:()=>chooseOpt(sid,iid,oid)},ch?'✓ Vald':'Välj'),
+            e('span',{className:'opt-btn',onClick:()=>setModal({type:'eO',secId:sid,itemId:iid,optId:oid,opt})},'✏️'),
+            e('span',{className:'opt-btn',onClick:()=>delOpt(sid,iid,oid)},'🗑️')))}),
+      e('div',{className:'add-opt',onClick:()=>setModal({type:'aO',secId:sid,itemId:iid})},'+ Lägg till alternativ')),
+    n===0&&e('div',{className:'opts-area'},e('div',{className:'add-opt',onClick:()=>setModal({type:'aO',secId:sid,itemId:iid})},'+ Lägg till alternativ')));
 }
 
-/* ── Sell Page ── */
-function SellPage({data,stats,search,setSearch,matchSearch,reorderSellItems,setModal}){
-  const listRef=useRef();
-  const items=Object.entries(data.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0)).filter(([,it])=>matchSearch(it.name||''));
-
-  useEffect(()=>{
-    if(!listRef.current)return;
-    const s=Sortable.create(listRef.current,{
-      handle:'.drag',animation:150,ghostClass:'sortable-ghost',
-      onEnd:ev=>reorderSellItems(ev.oldIndex,ev.newIndex)
-    });
-    return()=>s.destroy();
-  },[items.length]);
-
-  const statusLabels={unlisted:'Ej listad',listed:'Annonserad',reserved:'Reserverad',sold:'Såld ✓'};
-  const statusClass={unlisted:'pill-unlisted',listed:'pill-listed',reserved:'pill-reserved',sold:'pill-sold'};
-
+function SellPg({data,stats,search,setSearch,ms,reSI,setModal,setZoomImg}){
+  const ref=useRef();const items=Object.entries(data.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0)).filter(([,i])=>ms(i.name||''));
+  useEffect(()=>{if(!ref.current)return;const s=Sortable.create(ref.current,{handle:'.drag',animation:150,ghostClass:'sortable-ghost',onEnd:ev=>reSI(ev.oldIndex,ev.newIndex)});return()=>s.destroy()},[items.length]);
+  const sL={unlisted:'Ej listad',listed:'Annonserad',reserved:'Reserverad',sold:'Såld ✓'},sC={unlisted:'pill-unlisted',listed:'pill-listed',reserved:'pill-reserved',sold:'pill-sold'};
   return e(React.Fragment,null,
     e('div',{className:'summary'},
-      e('span',{className:'deco',style:{top:-2,right:8,transform:'rotate(18deg)'}},'🍋'),
-      e('span',{className:'deco',style:{bottom:0,left:10,transform:'rotate(-12deg)'}},'🍋'),
+      e('span',{className:'deco',style:{top:-4,right:6,fontSize:26,opacity:.45,transform:'rotate(18deg)'}},'🍋'),
+      e('span',{className:'deco',style:{bottom:-2,left:8,fontSize:24,opacity:.4,transform:'rotate(-12deg)'}},'🍋'),
+      e('span',{className:'deco',style:{top:6,left:'38%',fontSize:16,opacity:.2}},'🫒'),
       e('div',{className:'row'},e('span',null,'Annonser'),e('span',{className:'val',style:{color:'var(--ac3)'}},stats.sold+' / '+stats.total+' sålda ✓')),
       e('div',{className:'pb'},e('div',{className:'fill',style:{width:pct(stats.sold,stats.total)+'%'}})),
       e('div',{className:'row'},e('span',null,'Förväntat: '+fmtKr(stats.expected)),e('span',{className:'val',style:{color:'var(--pb2-a)'}},'Intjänat: '+fmtKr(stats.received))),
-      e('div',{className:'pb'},e('div',{className:'fill alt',style:{width:pct(stats.received,stats.expected)+'%'}})),
-    ),
-    e('div',{className:'search-wrap'},e('input',{className:'search',placeholder:'Sök bland saker att sälja...',value:search,onChange:ev=>setSearch(ev.target.value)})),
-    e('div',{ref:listRef},
-      items.map(([itemId,item])=>{
-        const isSold=item.status==='sold';
-        return e('div',{key:itemId,className:'item'+(isSold?' done':'')},
-          e('span',{className:'drag'},'⠿'),
-          e('div',{className:'thumb',onClick:item.imageUrl?toggleZoom:undefined},
-            item.imageUrl?e(React.Fragment,null,
-              e('img',{src:item.imageUrl,alt:'',loading:'lazy'}),
-              e('div',{className:'thumb-zoom'},e('img',{src:item.imageUrl,alt:''}))
-            ):
-            e('span',{style:{fontSize:14,cursor:'pointer'},onClick:()=>setModal({type:'editSellItem',itemId,item})},'📷')
-          ),
-          e('div',{className:'info'},
-            e('div',{className:'item-name'},item.name),
-            e('div',{className:'meta'},e('span',null,(isSold?'Såld':'Pris')+': '+fmtKr(item.price))),
-            item.adLink&&e('div',{className:'link-tag',onClick:()=>window.open(item.adLink,'_blank')},domainOf(item.adLink)),
-          ),
-          e('span',{className:'edit-btn',onClick:()=>setModal({type:'editSellItem',itemId,item})},'✏️'),
-          e('span',{className:'pill '+statusClass[item.status||'unlisted']},statusLabels[item.status||'unlisted']),
-        );
-      })
-    ),
-  );
+      e('div',{className:'pb'},e('div',{className:'fill alt',style:{width:pct(stats.received,stats.expected)+'%'}}))),
+    e('div',{className:'search-wrap'},e('input',{className:'search',placeholder:'Sök...',value:search,onChange:ev=>setSearch(ev.target.value)})),
+    e('div',{ref},items.map(([iid,item])=>{const sold=item.status==='sold';
+      return e('div',{key:iid,className:'item'+(sold?' done':'')},e('span',{className:'drag'},'⠿'),
+        e('div',{className:'thumb',onClick:()=>{if(item.imageUrl)setZoomImg(item.imageUrl)}},item.imageUrl?e('img',{src:item.imageUrl,alt:'',loading:'lazy'}):e('span',{style:{fontSize:14,cursor:'pointer'},onClick:ev=>{ev.stopPropagation();setModal({type:'eSI',itemId:iid,item})}},'📷')),
+        e('div',{className:'info'},e('div',{className:'item-name'},item.name),e('div',{className:'meta'},e('span',null,(sold?'Såld':'Pris')+': '+fmtKr(item.price))),
+          item.adLink&&e('div',{className:'link-tag',onClick:()=>window.open(item.adLink,'_blank')},domainOf(item.adLink))),
+        e('span',{className:'edit-btn',onClick:()=>setModal({type:'eSI',itemId:iid,item})},'✏️'),
+        e('span',{className:'pill '+sC[item.status||'unlisted']},sL[item.status||'unlisted']))})));
 }
 
-/* ── Fix Page ── */
-function FixPage({data,stats,search,setSearch,matchSearch,reorderFixItems,setModal}){
-  const listRef=useRef();
-  const items=Object.entries(data.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0)).filter(([,it])=>matchSearch(it.name||''));
-
-  useEffect(()=>{
-    if(!listRef.current)return;
-    const s=Sortable.create(listRef.current,{
-      handle:'.drag',animation:150,ghostClass:'sortable-ghost',
-      onEnd:ev=>reorderFixItems(ev.oldIndex,ev.newIndex)
-    });
-    return()=>s.destroy();
-  },[items.length]);
-
-  const statusLabels={todo:'Att göra',progress:'Pågår',done:'Klart ✓'};
-  const statusClass={todo:'pill-todo',progress:'pill-progress',done:'pill-done-fix'};
-  const whoLabels={us:'Vi',landlord:'Hyresvärd'};
-  const whoClass={us:'pill-us',landlord:'pill-landlord'};
-
+function FixPg({data,stats,search,setSearch,ms,reFI,setModal,setZoomImg}){
+  const ref=useRef();const items=Object.entries(data.items||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0)).filter(([,i])=>ms(i.name||''));
+  useEffect(()=>{if(!ref.current)return;const s=Sortable.create(ref.current,{handle:'.drag',animation:150,ghostClass:'sortable-ghost',onEnd:ev=>reFI(ev.oldIndex,ev.newIndex)});return()=>s.destroy()},[items.length]);
+  const sL={todo:'Att göra',progress:'Pågår',done:'Klart ✓'},sC={todo:'pill-todo',progress:'pill-progress',done:'pill-done-fix'};
+  const wL={us:'Vi',landlord:'Hyresvärd'},wC={us:'pill-us',landlord:'pill-landlord'};
   return e(React.Fragment,null,
     e('div',{className:'summary'},
-      e('span',{className:'deco',style:{top:-2,right:8,transform:'rotate(18deg)'}},'🔧'),
-      e('span',{className:'deco',style:{bottom:0,left:10,transform:'rotate(-12deg)'}},'🪛'),
+      e('span',{className:'deco',style:{top:-4,right:6,fontSize:22,opacity:.35,transform:'rotate(18deg)'}},'🔧'),
+      e('span',{className:'deco',style:{bottom:-2,left:8,fontSize:20,opacity:.3,transform:'rotate(-12deg)'}},'🪛'),
       e('div',{className:'row'},e('span',null,'Uppgifter'),e('span',{className:'val',style:{color:'var(--ac3)'}},stats.done+' / '+stats.total+' klara ✓')),
-      e('div',{className:'pb'},e('div',{className:'fill',style:{width:pct(stats.done,stats.total)+'%'}})),
-    ),
-    e('div',{className:'search-wrap'},e('input',{className:'search',placeholder:'Sök bland uppgifter...',value:search,onChange:ev=>setSearch(ev.target.value)})),
-    e('div',{ref:listRef},
-      items.map(([itemId,item])=>{
-        const isDone=item.status==='done';
-        return e('div',{key:itemId,className:'item'+(isDone?' done':'')},
-          e('span',{className:'drag'},'⠿'),
-          e('div',{className:'thumb',onClick:item.imageUrl?toggleZoom:undefined},
-            item.imageUrl?e(React.Fragment,null,
-              e('img',{src:item.imageUrl,alt:'',loading:'lazy'}),
-              e('div',{className:'thumb-zoom'},e('img',{src:item.imageUrl,alt:''}))
-            ):
-            e('span',{style:{fontSize:14,cursor:'pointer'},onClick:()=>setModal({type:'editFixItem',itemId,item})},'📷')
-          ),
-          e('div',{className:'info'},
-            e('div',{className:'item-name'},item.name),
-            e('div',{className:'meta'},e('span',null,isDone?'Klart '+(item.dateCompleted||''):'Tillagd '+(item.dateAdded||''))),
-          ),
-          e('span',{className:'edit-btn',onClick:()=>setModal({type:'editFixItem',itemId,item})},'✏️'),
-          e('span',{className:'pill '+(whoClass[item.responsibility]||'pill-us')},whoLabels[item.responsibility]||'Vi'),
-          e('span',{className:'pill '+(statusClass[item.status]||'pill-todo')},statusLabels[item.status]||'Att göra'),
-        );
-      })
-    ),
-  );
+      e('div',{className:'pb'},e('div',{className:'fill',style:{width:pct(stats.done,stats.total)+'%'}}))),
+    e('div',{className:'search-wrap'},e('input',{className:'search',placeholder:'Sök...',value:search,onChange:ev=>setSearch(ev.target.value)})),
+    e('div',{ref},items.map(([iid,item])=>{const done=item.status==='done';
+      return e('div',{key:iid,className:'item'+(done?' done':'')},e('span',{className:'drag'},'⠿'),
+        e('div',{className:'thumb',onClick:()=>{if(item.imageUrl)setZoomImg(item.imageUrl)}},item.imageUrl?e('img',{src:item.imageUrl,alt:'',loading:'lazy'}):e('span',{style:{fontSize:14,cursor:'pointer'},onClick:ev=>{ev.stopPropagation();setModal({type:'eFI',itemId:iid,item})}},'📷')),
+        e('div',{className:'info'},e('div',{className:'item-name'},item.name),e('div',{className:'meta'},e('span',null,done?'Klart '+(item.dateCompleted||''):'Tillagd '+(item.dateAdded||'')))),
+        e('span',{className:'edit-btn',onClick:()=>setModal({type:'eFI',itemId:iid,item})},'✏️'),
+        e('span',{className:'pill '+(wC[item.responsibility]||'pill-us')},wL[item.responsibility]||'Vi'),
+        e('span',{className:'pill '+(sC[item.status]||'pill-todo')},sL[item.status]||'Att göra'))})));
 }
 
-/* ── Modal Router ── */
-function ModalRouter({modal,setModal,page,data,addSection,updateSection,deleteSection,addBuyItem,updateBuyItem,deleteBuyItem,addSellItem,updateSellItem,deleteSellItem,addFixItem,updateFixItem,deleteFixItem}){
-  const close=()=>setModal(null);
-  const t=modal.type;
-
-  if(t==='addSection')return e(Modal,{onClose:close,page},e(SectionForm,{onSubmit:(n,em)=>{addSection(n,em);close()},onClose:close}));
-  if(t==='editSection')return e(Modal,{onClose:close,page},e(SectionForm,{initial:modal,onSubmit:(n,em)=>{updateSection(modal.secId,{name:n,emoji:em});close()},onDelete:()=>{deleteSection(modal.secId);close()},onClose:close}));
-
-  if(t==='addBuyItem'){
-    const secs=Object.entries(data.buying.sections||{}).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
-    return e(Modal,{onClose:close,page},e(BuyItemForm,{sections:secs,defaultSecId:modal.secId,onSubmit:(secId,item)=>{addBuyItem(secId,item);close()},onClose:close}));
-  }
-  if(t==='editBuyItem')return e(Modal,{onClose:close,page},e(BuyItemForm,{initial:modal.item,onSubmit:(_,updates)=>{updateBuyItem(modal.secId,modal.itemId,updates);close()},onDelete:()=>{deleteBuyItem(modal.secId,modal.itemId);close()},onClose:close,editSecId:modal.secId}));
-
-  if(t==='addSellItem')return e(Modal,{onClose:close,page},e(SellItemForm,{onSubmit:(item)=>{addSellItem(item);close()},onClose:close}));
-  if(t==='editSellItem')return e(Modal,{onClose:close,page},e(SellItemForm,{initial:modal.item,onSubmit:(updates)=>{updateSellItem(modal.itemId,updates);close()},onDelete:()=>{deleteSellItem(modal.itemId);close()},onClose:close}));
-
-  if(t==='addFixItem')return e(Modal,{onClose:close,page},e(FixItemForm,{onSubmit:(item)=>{addFixItem(item);close()},onClose:close}));
-  if(t==='editFixItem')return e(Modal,{onClose:close,page},e(FixItemForm,{initial:modal.item,onSubmit:(updates)=>{updateFixItem(modal.itemId,updates);close()},onDelete:()=>{deleteFixItem(modal.itemId);close()},onClose:close}));
-
+function MdlR({modal,setModal,data,allSec,addSec,updSec,delSec,addBI,updBI,delBI,moveBI,addSI,updSI,delSI,addFI,updFI,delFI,addOpt,updOpt,delOpt}){
+  const cl=()=>setModal(null),t=modal.type;
+  if(t==='aS')return e(Mdl,{onClose:cl},e(SecF,{onSubmit:(n,em)=>{addSec(n,em);cl()},onClose:cl}));
+  if(t==='eS')return e(Mdl,{onClose:cl},e(SecF,{initial:modal,onSubmit:(n,em)=>{updSec(modal.secId,{name:n,emoji:em});cl()},onDelete:()=>{delSec(modal.secId);cl()},onClose:cl}));
+  if(t==='aBI')return e(Mdl,{onClose:cl},e(BIF,{sections:allSec,defaultSecId:modal.secId,onSubmit:(sid,it)=>{addBI(sid,it);cl()},onClose:cl}));
+  if(t==='eBI')return e(Mdl,{onClose:cl},e(BIF,{sections:allSec,initial:modal.item,editSecId:modal.secId,onSubmit:(toSid,u)=>{if(toSid!==modal.secId){moveBI(modal.secId,modal.itemId,toSid);setTimeout(()=>updBI(toSid,modal.itemId,u),200)}else updBI(modal.secId,modal.itemId,u);cl()},onDelete:()=>{delBI(modal.secId,modal.itemId);cl()},onClose:cl}));
+  if(t==='aO')return e(Mdl,{onClose:cl},e(OptF,{onSubmit:opt=>{addOpt(modal.secId,modal.itemId,opt);cl()},onClose:cl}));
+  if(t==='eO')return e(Mdl,{onClose:cl},e(OptF,{initial:modal.opt,onSubmit:u=>{updOpt(modal.secId,modal.itemId,modal.optId,u);cl()},onDelete:()=>{delOpt(modal.secId,modal.itemId,modal.optId);cl()},onClose:cl}));
+  if(t==='aSI')return e(Mdl,{onClose:cl},e(SIF,{onSubmit:it=>{addSI(it);cl()},onClose:cl}));
+  if(t==='eSI')return e(Mdl,{onClose:cl},e(SIF,{initial:modal.item,onSubmit:u=>{updSI(modal.itemId,u);cl()},onDelete:()=>{delSI(modal.itemId);cl()},onClose:cl}));
+  if(t==='aFI')return e(Mdl,{onClose:cl},e(FIF,{onSubmit:it=>{addFI(it);cl()},onClose:cl}));
+  if(t==='eFI')return e(Mdl,{onClose:cl},e(FIF,{initial:modal.item,onSubmit:u=>{updFI(modal.itemId,u);cl()},onDelete:()=>{delFI(modal.itemId);cl()},onClose:cl}));
   return null;
 }
 
-/* ── Section Form ── */
-function SectionForm({initial,onSubmit,onDelete,onClose}){
-  const[name,setName]=useState(initial?.name||'');
-  const[emoji,setEmoji]=useState(initial?.emoji||'');
-  return e(React.Fragment,null,
-    e('h2',null,initial?'Redigera sektion':'Ny sektion'),
-    e('label',null,'Emoji'),
-    e('input',{value:emoji,onChange:ev=>setEmoji(ev.target.value),placeholder:'t.ex. 🍳',style:{width:60,textAlign:'center',fontSize:20}}),
-    e('label',null,'Namn'),
-    e('input',{value:name,onChange:ev=>setName(ev.target.value),placeholder:'t.ex. Kök, Badrum...',autoFocus:true}),
-    e('div',{className:'btn-row'},
-      e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),
-      onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
-      e('button',{className:'btn btn-primary',onClick:()=>name.trim()&&onSubmit(name.trim(),emoji)},initial?'Spara':'Lägg till'),
-    )
-  );
-}
+function SecF({initial,onSubmit,onDelete,onClose}){const[n,sN]=useState(initial?.name||'');const[em,sE]=useState(initial?.emoji||'');
+  return e(React.Fragment,null,e('h2',null,initial?'Redigera sektion':'Ny sektion'),
+    e('label',null,'Emoji'),e('input',{value:em,onChange:ev=>sE(ev.target.value),placeholder:'t.ex. 🍳',style:{width:60,textAlign:'center',fontSize:20}}),
+    e('label',null,'Namn'),e('input',{value:n,onChange:ev=>sN(ev.target.value),placeholder:'t.ex. Kök',autoFocus:true}),
+    e('div',{className:'btn-row'},e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
+      e('button',{className:'btn btn-primary',onClick:()=>n.trim()&&onSubmit(n.trim(),em)},initial?'Spara':'Lägg till')))}
 
-/* ── Buy Item Form ── */
-function BuyItemForm({sections,defaultSecId,initial,onSubmit,onDelete,onClose,editSecId}){
-  const[secId,setSecId]=useState(editSecId||defaultSecId||'');
-  const[name,setName]=useState(initial?.name||'');
-  const[budget,setBudget]=useState(initial?.budget||'');
-  const[price,setPrice]=useState(initial?.price||'');
-  const[link,setLink]=useState(initial?.link||'');
-  const[imageUrl,setImageUrl]=useState(initial?.imageUrl||'');
-  const[emoji,setEmoji]=useState(initial?.emoji||'');
+function BIF({sections,defaultSecId,initial,onSubmit,onDelete,onClose,editSecId}){
+  const[sid,sSid]=useState(editSecId||defaultSecId||'');const[nm,sNm]=useState(initial?.name||'');const[bu,sBu]=useState(initial?.budget||'');
+  const[pr,sPr]=useState(initial?.price||'');const[lk,sLk]=useState(initial?.link||'');const[img,sImg]=useState(initial?.imageUrl||'');const[em,sEm]=useState(initial?.emoji||'');
+  return e(React.Fragment,null,e('h2',null,initial?'Redigera sak':'Lägg till sak'),
+    e('label',null,'Sektion'),e('select',{value:sid,onChange:ev=>sSid(ev.target.value)},sections.map(([id,s])=>e('option',{key:id,value:id},(s.emoji?s.emoji+' ':'')+s.name))),
+    e('label',null,'Namn'),e('input',{value:nm,onChange:ev=>sNm(ev.target.value),placeholder:'t.ex. Stekpanna',autoFocus:true}),
+    e('label',null,'Emoji (valfritt)'),e('input',{value:em,onChange:ev=>sEm(ev.target.value),placeholder:'t.ex. 🍳',style:{width:60,textAlign:'center',fontSize:20}}),
+    e('label',null,'Budget (kr)'),e('input',{type:'number',value:bu,onChange:ev=>sBu(ev.target.value),placeholder:'0'}),
+    e('label',null,'Pris (kr)'),e('input',{type:'number',value:pr,onChange:ev=>sPr(ev.target.value),placeholder:'0'}),
+    e('label',null,'Länk'),e('input',{value:lk,onChange:ev=>sLk(ev.target.value),placeholder:'https://...'}),
+    e('label',null,'Bild-URL (hämtas automatiskt)'),e('div',{className:'img-upload-row'},e('input',{value:img,onChange:ev=>sImg(ev.target.value),placeholder:'https://...',style:{flex:1}}),img&&e('img',{className:'img-preview',src:img,alt:''})),
+    e('div',{className:'btn-row'},e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
+      e('button',{className:'btn btn-primary',onClick:()=>{if(!nm.trim())return;onSubmit(sid,{name:nm.trim(),budget:Number(bu)||0,price:Number(pr)||0,link:lk,imageUrl:img,emoji:em})}},initial?'Spara':'Lägg till')))}
 
-  return e(React.Fragment,null,
-    e('h2',null,initial?'Redigera sak':'Lägg till sak'),
-    !editSecId&&sections&&e(React.Fragment,null,
-      e('label',null,'Sektion'),
-      e('select',{value:secId,onChange:ev=>setSecId(ev.target.value)},
-        sections.map(([id,s])=>e('option',{key:id,value:id},(s.emoji?s.emoji+' ':'')+s.name))
-      ),
-    ),
-    e('label',null,'Namn'),
-    e('input',{value:name,onChange:ev=>setName(ev.target.value),placeholder:'t.ex. Stekpanna 28cm',autoFocus:true}),
-    e('label',null,'Emoji (valfritt)'),
-    e('input',{value:emoji,onChange:ev=>setEmoji(ev.target.value),placeholder:'🍳',style:{width:60,textAlign:'center',fontSize:20}}),
-    e('label',null,'Budget (kr)'),
-    e('input',{type:'number',value:budget,onChange:ev=>setBudget(ev.target.value),placeholder:'0'}),
-    e('label',null,'Pris (kr)'),
-    e('input',{type:'number',value:price,onChange:ev=>setPrice(ev.target.value),placeholder:'0'}),
-    e('label',null,'Länk till produkt'),
-    e('input',{value:link,onChange:ev=>setLink(ev.target.value),placeholder:'https://...'}),
-    e('label',null,'Bild-URL (hämtas automatiskt om länk finns)'),
-    e('div',{className:'img-upload-row'},
-      e('input',{value:imageUrl,onChange:ev=>setImageUrl(ev.target.value),placeholder:'https://... eller lämna tomt',style:{flex:1}}),
-      imageUrl&&e('img',{className:'img-preview',src:imageUrl,alt:''})
-    ),
-    e('div',{className:'btn-row'},
-      e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),
-      onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
-      e('button',{className:'btn btn-primary',onClick:()=>{
-        if(!name.trim())return;
-        const item={name:name.trim(),budget:Number(budget)||0,price:Number(price)||0,link,imageUrl,emoji};
-        onSubmit(secId,item);
-      }},initial?'Spara':'Lägg till'),
-    )
-  );
-}
+function OptF({initial,onSubmit,onDelete,onClose}){
+  const[url,sUrl]=useState(initial?.url||'');const[nm,sNm]=useState(initial?.name||'');const[pr,sPr]=useState(initial?.price||'');
+  const[note,sNote]=useState(initial?.note||'');const[img,sImg]=useState(initial?.imageUrl||'');const[fetching,sF]=useState(false);
+  const doF=async()=>{if(!url)return;sF(true);const d=await fetchOgData(url);if(d.image&&!img)sImg(d.image);if(d.title&&!nm)sNm(d.title);sF(false)};
+  return e(React.Fragment,null,e('h2',null,initial?'Redigera alternativ':'Nytt alternativ'),
+    e('label',null,'Länk'),e('div',{style:{display:'flex',gap:8}},e('input',{value:url,onChange:ev=>sUrl(ev.target.value),placeholder:'https://blocket.se/...',autoFocus:true,style:{flex:1}}),
+      e('button',{className:'btn btn-secondary',style:{flex:'none',padding:'8px 12px',fontSize:12},onClick:doF,disabled:fetching},fetching?'...':'Hämta')),
+    e('label',null,'Namn'),e('input',{value:nm,onChange:ev=>sNm(ev.target.value),placeholder:'Beskrivande namn...'}),
+    e('label',null,'Pris (kr)'),e('input',{type:'number',value:pr,onChange:ev=>sPr(ev.target.value),placeholder:'0'}),
+    e('label',null,'Anteckning'),e('textarea',{value:note,onChange:ev=>sNote(ev.target.value),placeholder:'t.ex. Bra skick, Uppsala...',rows:2}),
+    e('label',null,'Bild-URL'),e('div',{className:'img-upload-row'},e('input',{value:img,onChange:ev=>sImg(ev.target.value),placeholder:'Hämtas automatiskt...',style:{flex:1}}),img&&e('img',{className:'img-preview',src:img,alt:''})),
+    e('div',{className:'btn-row'},e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
+      e('button',{className:'btn btn-primary',onClick:()=>onSubmit({url,name:nm.trim(),price:Number(pr)||0,note,imageUrl:img})},initial?'Spara':'Lägg till')))}
 
-/* ── Sell Item Form ── */
-function SellItemForm({initial,onSubmit,onDelete,onClose}){
-  const[name,setName]=useState(initial?.name||'');
-  const[price,setPrice]=useState(initial?.price||'');
-  const[imageUrl,setImageUrl]=useState(initial?.imageUrl||'');
-  const[adLink,setAdLink]=useState(initial?.adLink||'');
-  const[status,setStatus]=useState(initial?.status||'unlisted');
-  const fileRef=useRef();
+function SIF({initial,onSubmit,onDelete,onClose}){
+  const[nm,sNm]=useState(initial?.name||'');const[pr,sPr]=useState(initial?.price||'');const[img,sImg]=useState(initial?.imageUrl||'');
+  const[al,sAl]=useState(initial?.adLink||'');const[st,sSt]=useState(initial?.status||'unlisted');const fr=useRef();
+  const hF=async ev=>{const f=ev.target.files[0];if(f)sImg(await compressImage(f))};
+  return e(React.Fragment,null,e('h2',null,initial?'Redigera':'Lägg till sak att sälja'),
+    e('label',null,'Namn'),e('input',{value:nm,onChange:ev=>sNm(ev.target.value),placeholder:'t.ex. Skrivbordsstol',autoFocus:true}),
+    e('label',null,'Pris (kr)'),e('input',{type:'number',value:pr,onChange:ev=>sPr(ev.target.value),placeholder:'0'}),
+    e('label',null,'Status'),e('select',{value:st,onChange:ev=>sSt(ev.target.value)},e('option',{value:'unlisted'},'Ej listad'),e('option',{value:'listed'},'Annonserad'),e('option',{value:'reserved'},'Reserverad'),e('option',{value:'sold'},'Såld')),
+    e('label',null,'Länk till annons'),e('input',{value:al,onChange:ev=>sAl(ev.target.value),placeholder:'https://blocket.se/...'}),
+    e('label',null,'Bild'),e('div',{className:'img-upload-row'},e('input',{value:typeof img==='string'&&!img.startsWith('data:')?img:'',onChange:ev=>sImg(ev.target.value),placeholder:'Bild-URL...',style:{flex:1}}),
+      e('span',{className:'img-upload-btn',onClick:()=>fr.current?.click()},'📷 Ladda upp'),e('input',{ref:fr,type:'file',accept:'image/*',capture:'environment',style:{display:'none'},onChange:hF})),
+    img&&e('img',{className:'img-preview',src:img,alt:'',style:{marginTop:6}}),
+    e('div',{className:'btn-row'},e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
+      e('button',{className:'btn btn-primary',onClick:()=>{if(!nm.trim())return;onSubmit({name:nm.trim(),price:Number(pr)||0,imageUrl:img,adLink:al,status:st})}},initial?'Spara':'Lägg till')))}
 
-  const handleFile=async(ev)=>{
-    const f=ev.target.files[0];
-    if(!f)return;
-    const compressed=await compressImage(f);
-    setImageUrl(compressed);
-  };
+function FIF({initial,onSubmit,onDelete,onClose}){
+  const[nm,sNm]=useState(initial?.name||'');const[resp,sR]=useState(initial?.responsibility||'us');
+  const[st,sSt]=useState(initial?.status||'todo');const[img,sImg]=useState(initial?.imageUrl||'');const fr=useRef();
+  const hF=async ev=>{const f=ev.target.files[0];if(f)sImg(await compressImage(f))};
+  return e(React.Fragment,null,e('h2',null,initial?'Redigera uppgift':'Ny uppgift'),
+    e('label',null,'Beskrivning'),e('input',{value:nm,onChange:ev=>sNm(ev.target.value),placeholder:'t.ex. Byta lampa',autoFocus:true}),
+    e('label',null,'Ansvarig'),e('select',{value:resp,onChange:ev=>sR(ev.target.value)},e('option',{value:'us'},'Vi'),e('option',{value:'landlord'},'Hyresvärd')),
+    e('label',null,'Status'),e('select',{value:st,onChange:ev=>sSt(ev.target.value)},e('option',{value:'todo'},'Att göra'),e('option',{value:'progress'},'Pågår'),e('option',{value:'done'},'Klart')),
+    e('label',null,'Foto'),e('div',{className:'img-upload-row'},e('input',{value:typeof img==='string'&&!img.startsWith('data:')?img:'',onChange:ev=>sImg(ev.target.value),placeholder:'Bild-URL...',style:{flex:1}}),
+      e('span',{className:'img-upload-btn',onClick:()=>fr.current?.click()},'📷 Ladda upp'),e('input',{ref:fr,type:'file',accept:'image/*',capture:'environment',style:{display:'none'},onChange:hF})),
+    img&&e('img',{className:'img-preview',src:img,alt:'',style:{marginTop:6}}),
+    e('div',{className:'btn-row'},e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
+      e('button',{className:'btn btn-primary',onClick:()=>{if(!nm.trim())return;const u={name:nm.trim(),responsibility:resp,status:st,imageUrl:img};if(st==='done'&&initial?.status!=='done')u.dateCompleted=today();onSubmit(u)}},initial?'Spara':'Lägg till')))}
 
-  return e(React.Fragment,null,
-    e('h2',null,initial?'Redigera sak':'Lägg till sak att sälja'),
-    e('label',null,'Namn'),
-    e('input',{value:name,onChange:ev=>setName(ev.target.value),placeholder:'t.ex. Skrivbordsstol',autoFocus:true}),
-    e('label',null,'Pris (kr)'),
-    e('input',{type:'number',value:price,onChange:ev=>setPrice(ev.target.value),placeholder:'0'}),
-    e('label',null,'Status'),
-    e('select',{value:status,onChange:ev=>setStatus(ev.target.value)},
-      e('option',{value:'unlisted'},'Ej listad'),
-      e('option',{value:'listed'},'Annonserad'),
-      e('option',{value:'reserved'},'Reserverad'),
-      e('option',{value:'sold'},'Såld'),
-    ),
-    e('label',null,'Länk till annons'),
-    e('input',{value:adLink,onChange:ev=>setAdLink(ev.target.value),placeholder:'https://blocket.se/...'}),
-    e('label',null,'Bild'),
-    e('div',{className:'img-upload-row'},
-      e('input',{value:typeof imageUrl==='string'&&!imageUrl.startsWith('data:')?imageUrl:'',onChange:ev=>setImageUrl(ev.target.value),placeholder:'Klistra in bild-URL...',style:{flex:1}}),
-      e('span',{className:'img-upload-btn',onClick:()=>fileRef.current?.click()},'📷 Ladda upp'),
-      e('input',{ref:fileRef,type:'file',accept:'image/*',capture:'environment',style:{display:'none'},onChange:handleFile}),
-    ),
-    imageUrl&&e('img',{className:'img-preview',src:imageUrl,alt:'',style:{marginTop:6}}),
-    e('div',{className:'btn-row'},
-      e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),
-      onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
-      e('button',{className:'btn btn-primary',onClick:()=>{
-        if(!name.trim())return;
-        onSubmit({name:name.trim(),price:Number(price)||0,imageUrl,adLink,status});
-      }},initial?'Spara':'Lägg till'),
-    )
-  );
-}
-
-/* ── Fix Item Form ── */
-function FixItemForm({initial,onSubmit,onDelete,onClose}){
-  const[name,setName]=useState(initial?.name||'');
-  const[responsibility,setResp]=useState(initial?.responsibility||'us');
-  const[status,setStatus]=useState(initial?.status||'todo');
-  const[imageUrl,setImageUrl]=useState(initial?.imageUrl||'');
-  const fileRef=useRef();
-
-  const handleFile=async(ev)=>{
-    const f=ev.target.files[0];
-    if(!f)return;
-    const compressed=await compressImage(f);
-    setImageUrl(compressed);
-  };
-
-  return e(React.Fragment,null,
-    e('h2',null,initial?'Redigera uppgift':'Ny uppgift'),
-    e('label',null,'Beskrivning'),
-    e('input',{value:name,onChange:ev=>setName(ev.target.value),placeholder:'t.ex. Byta lampa i hallen',autoFocus:true}),
-    e('label',null,'Ansvarig'),
-    e('select',{value:responsibility,onChange:ev=>setResp(ev.target.value)},
-      e('option',{value:'us'},'Vi'),
-      e('option',{value:'landlord'},'Hyresvärd'),
-    ),
-    e('label',null,'Status'),
-    e('select',{value:status,onChange:ev=>setStatus(ev.target.value)},
-      e('option',{value:'todo'},'Att göra'),
-      e('option',{value:'progress'},'Pågår'),
-      e('option',{value:'done'},'Klart'),
-    ),
-    e('label',null,'Foto'),
-    e('div',{className:'img-upload-row'},
-      e('input',{value:typeof imageUrl==='string'&&!imageUrl.startsWith('data:')?imageUrl:'',onChange:ev=>setImageUrl(ev.target.value),placeholder:'Klistra in bild-URL...',style:{flex:1}}),
-      e('span',{className:'img-upload-btn',onClick:()=>fileRef.current?.click()},'📷 Ladda upp'),
-      e('input',{ref:fileRef,type:'file',accept:'image/*',capture:'environment',style:{display:'none'},onChange:handleFile}),
-    ),
-    imageUrl&&e('img',{className:'img-preview',src:imageUrl,alt:'',style:{marginTop:6}}),
-    e('div',{className:'btn-row'},
-      e('button',{className:'btn btn-secondary',onClick:onClose},'Avbryt'),
-      onDelete&&e('button',{className:'btn btn-danger',onClick:onDelete},'Radera'),
-      e('button',{className:'btn btn-primary',onClick:()=>{
-        if(!name.trim())return;
-        const updates={name:name.trim(),responsibility,status,imageUrl};
-        if(status==='done'&&initial?.status!=='done')updates.dateCompleted=today();
-        onSubmit(updates);
-      }},initial?'Spara':'Lägg till'),
-    )
-  );
-}
-
-/* ── Root ── */
-function App(){
-  const[authed,setAuthed]=useState(sessionStorage.getItem('auth')==='1');
-  if(!authed)return e(PasswordScreen,{onAuth:()=>setAuthed(true)});
-  return e(MainApp);
-}
-
-const root=ReactDOM.createRoot(document.getElementById('root'));
-root.render(e(App));
-
+function App(){const[a,sA]=useState(sessionStorage.getItem('auth')==='1');return a?e(Main):e(PwScreen,{onAuth:()=>sA(true)})}
+ReactDOM.createRoot(document.getElementById('root')).render(e(App));
 })();
 </script>
 </body>
