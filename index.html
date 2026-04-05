@@ -87,11 +87,11 @@ button{cursor:pointer;border:none;background:none}
 .item .drag{color:var(--card-b);font-size:12px;cursor:grab;line-height:1;touch-action:none;user-select:none;padding:4px 2px}
 .item .thumb{width:34px;height:34px;border-radius:7px;background:var(--input-bg);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;overflow:hidden;position:relative}
 .item .thumb img{width:100%;height:100%;object-fit:cover}
-.item .thumb{position:relative}
+.item .thumb{position:relative;cursor:pointer}
+.thumb-zoom{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:220px;height:220px;border-radius:14px;overflow:hidden;border:2px solid var(--card-b);background:var(--card);z-index:15;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.thumb-zoom img{width:100%;height:100%;object-fit:contain;background:var(--input-bg)}
 .item .thumb:hover .thumb-zoom{display:block}
-.thumb-zoom{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);width:160px;height:160px;border-radius:12px;overflow:hidden;border:2px solid var(--card-b);background:var(--card);z-index:15;box-shadow:0 4px 20px rgba(0,0,0,.2)}
-.thumb-zoom img{width:100%;height:100%;object-fit:cover}
-@media(hover:none){.thumb-zoom{display:none!important}}
+.item .thumb.zoom-open .thumb-zoom{display:block}
 .sec-edit{font-size:13px;padding:2px 6px;cursor:pointer;opacity:.5;transition:opacity .2s;color:#E8DFC8}
 .sec-edit:hover{opacity:1}
 .item .info{flex:1;min-width:0}
@@ -116,7 +116,7 @@ button{cursor:pointer;border:none;background:none}
 .pill-landlord{background:#E8DDD8;color:#6A4A3A}
 
 /* Branch Divider */
-.branch{margin:2px 0;display:block;width:100%}
+.branch{margin:6px 0;display:block;width:100%}
 
 /* FAB */
 .fab{position:fixed;bottom:20px;right:max(20px,calc(50% - 230px));width:48px;height:48px;background:var(--ac);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s var(--ease),background .4s var(--ease);z-index:10;box-shadow:0 2px 12px rgba(0,0,0,.15)}
@@ -230,33 +230,43 @@ function compressImage(file,maxW=200){
   });
 }
 
+/* ── Tap-to-zoom helper ── */
+function toggleZoom(ev){
+  ev.stopPropagation();
+  const thumb=ev.currentTarget;
+  const wasOpen=thumb.classList.contains('zoom-open');
+  document.querySelectorAll('.thumb.zoom-open').forEach(t=>t.classList.remove('zoom-open'));
+  if(!wasOpen)thumb.classList.add('zoom-open');
+}
+document.addEventListener('click',ev=>{if(!ev.target.closest('.thumb'))document.querySelectorAll('.thumb.zoom-open').forEach(t=>t.classList.remove('zoom-open'))});
+
 /* ── SVG Branch Component ── */
 function Branch({seed=0}){
   const s=seed*137.5;
   const pts=[];
-  let y=14;
+  let y=18;
   for(let x=0;x<=350;x+=5){
-    y=14+Math.sin((x+s)*.02)*5+Math.sin((x+s)*.05)*3;
+    y=18+Math.sin((x+s)*.02)*6+Math.sin((x+s)*.05)*4;
     pts.push(x+','+y.toFixed(1));
   }
   const path='M'+pts.join(' L');
   const leaves=[];const fruits=[];const emojis=[];
   for(let i=0;i<8;i++){
     const lx=30+i*42+(s%20);
-    const ly=14+Math.sin((lx+s)*.03)*4;
+    const ly=18+Math.sin((lx+s)*.03)*5;
     const rot=-20+((i+seed)%5)*10;
     const isLight=(i+seed)%2===0;
-    leaves.push(e('ellipse',{key:'l'+i,cx:lx,cy:ly,rx:5.5,ry:2.5,fill:isLight?'#B5C49A':'#7A8A6A',opacity:isLight?.5:.4,transform:'rotate('+rot+' '+lx+' '+ly+')'}));
+    leaves.push(e('ellipse',{key:'l'+i,cx:lx,cy:ly,rx:6,ry:2.8,fill:isLight?'#B5C49A':'#7A8A6A',opacity:isLight?.5:.4,transform:'rotate('+rot+' '+lx+' '+ly+')'}));
   }
   for(let i=0;i<3;i++){
     const fx=60+i*110+((s*3)%30);
-    fruits.push(e('circle',{key:'f'+i,cx:fx,cy:14+Math.sin((fx+s)*.03)*3,r:2.5,fill:'#3A4A2A',opacity:.35}));
+    fruits.push(e('circle',{key:'f'+i,cx:fx,cy:18+Math.sin((fx+s)*.03)*4,r:3,fill:'#3A4A2A',opacity:.35}));
   }
   const e1x=100+((s*2)%150);const e2x=250+((s*3)%80);
-  emojis.push(e('text',{key:'em1',x:e1x,y:16,textAnchor:'middle',fontSize:12,opacity:.6},'🍋'));
-  emojis.push(e('text',{key:'em2',x:e2x,y:15,textAnchor:'middle',fontSize:11,opacity:.55},'🫒'));
+  emojis.push(e('text',{key:'em1',x:e1x,y:22,textAnchor:'middle',fontSize:14,opacity:.6},'🍋'));
+  emojis.push(e('text',{key:'em2',x:e2x,y:21,textAnchor:'middle',fontSize:13,opacity:.55},'🫒'));
 
-  return e('svg',{className:'branch',viewBox:'0 0 350 28',height:22,preserveAspectRatio:'none'},
+  return e('svg',{className:'branch',viewBox:'0 0 350 36',height:36,preserveAspectRatio:'none'},
     e('path',{d:path,stroke:'#7A8A6A',strokeWidth:1.2,fill:'none',opacity:.45}),
     ...leaves,...fruits,...emojis
   );
@@ -386,7 +396,7 @@ function MainApp(){
     const id=genId();
     const secs=data.buying.sections||{};
     const order=Object.keys(secs).length;
-    db.ref('buying/sections/'+id).set({name,emoji:emoji||'📦',order,items:{}});
+    db.ref('buying/sections/'+id).set({name,emoji:emoji||'',order,items:{}});
   };
 
   const updateSection=(secId,updates)=>{db.ref('buying/sections/'+secId).update(updates)};
@@ -547,7 +557,7 @@ function BuySection({secId,sec,secStats:ss,matchSearch,toggleBuyItem,reorderBuyI
     e('div',{className:'sec-head',onClick:()=>setOpen(!open)},
       e('div',{className:'left'},
         e('span',{className:'sec-drag',style:{cursor:'grab',marginRight:2,opacity:.5},onClick:ev=>ev.stopPropagation()},'⠿'),
-        e('span',{className:'title'},sec.emoji+' '+sec.name),
+        e('span',{className:'title'},(sec.emoji?sec.emoji+' ':'')+sec.name),
         e('span',{className:'badge'},ss.purchased+'/'+ss.total),
       ),
       e('span',{className:'sec-edit',onClick:ev=>{ev.stopPropagation();setModal({type:'editSection',secId,name:sec.name,emoji:sec.emoji})}},'✏️'),
@@ -573,12 +583,12 @@ function BuySection({secId,sec,secStats:ss,matchSearch,toggleBuyItem,reorderBuyI
 function BuyItem({secId,itemId,item,toggleBuyItem,setModal}){
   return e('div',{className:'item'+(item.purchased?' done':'')},
     e('span',{className:'drag'},'⠿'),
-    e('div',{className:'thumb'},
+    e('div',{className:'thumb',onClick:item.imageUrl?toggleZoom:undefined},
       item.imageUrl?e(React.Fragment,null,
         e('img',{src:item.imageUrl,alt:'',loading:'lazy'}),
         e('div',{className:'thumb-zoom'},e('img',{src:item.imageUrl,alt:''}))
       ):
-      item.emoji?item.emoji:'📦'
+      item.emoji?item.emoji:null
     ),
     e('div',{className:'info'},
       e('div',{className:'item-name'},item.name),
@@ -627,7 +637,7 @@ function SellPage({data,stats,search,setSearch,matchSearch,reorderSellItems,setM
         const isSold=item.status==='sold';
         return e('div',{key:itemId,className:'item'+(isSold?' done':'')},
           e('span',{className:'drag'},'⠿'),
-          e('div',{className:'thumb'},
+          e('div',{className:'thumb',onClick:item.imageUrl?toggleZoom:undefined},
             item.imageUrl?e(React.Fragment,null,
               e('img',{src:item.imageUrl,alt:'',loading:'lazy'}),
               e('div',{className:'thumb-zoom'},e('img',{src:item.imageUrl,alt:''}))
@@ -679,7 +689,7 @@ function FixPage({data,stats,search,setSearch,matchSearch,reorderFixItems,setMod
         const isDone=item.status==='done';
         return e('div',{key:itemId,className:'item'+(isDone?' done':'')},
           e('span',{className:'drag'},'⠿'),
-          e('div',{className:'thumb'},
+          e('div',{className:'thumb',onClick:item.imageUrl?toggleZoom:undefined},
             item.imageUrl?e(React.Fragment,null,
               e('img',{src:item.imageUrl,alt:'',loading:'lazy'}),
               e('div',{className:'thumb-zoom'},e('img',{src:item.imageUrl,alt:''}))
@@ -725,11 +735,11 @@ function ModalRouter({modal,setModal,page,data,addSection,updateSection,deleteSe
 /* ── Section Form ── */
 function SectionForm({initial,onSubmit,onDelete,onClose}){
   const[name,setName]=useState(initial?.name||'');
-  const[emoji,setEmoji]=useState(initial?.emoji||'📦');
+  const[emoji,setEmoji]=useState(initial?.emoji||'');
   return e(React.Fragment,null,
     e('h2',null,initial?'Redigera sektion':'Ny sektion'),
     e('label',null,'Emoji'),
-    e('input',{value:emoji,onChange:ev=>setEmoji(ev.target.value),placeholder:'📦',style:{width:60,textAlign:'center',fontSize:20}}),
+    e('input',{value:emoji,onChange:ev=>setEmoji(ev.target.value),placeholder:'t.ex. 🍳',style:{width:60,textAlign:'center',fontSize:20}}),
     e('label',null,'Namn'),
     e('input',{value:name,onChange:ev=>setName(ev.target.value),placeholder:'t.ex. Kök, Badrum...',autoFocus:true}),
     e('div',{className:'btn-row'},
@@ -755,7 +765,7 @@ function BuyItemForm({sections,defaultSecId,initial,onSubmit,onDelete,onClose,ed
     !editSecId&&sections&&e(React.Fragment,null,
       e('label',null,'Sektion'),
       e('select',{value:secId,onChange:ev=>setSecId(ev.target.value)},
-        sections.map(([id,s])=>e('option',{key:id,value:id},s.emoji+' '+s.name))
+        sections.map(([id,s])=>e('option',{key:id,value:id},(s.emoji?s.emoji+' ':'')+s.name))
       ),
     ),
     e('label',null,'Namn'),
