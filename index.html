@@ -149,7 +149,7 @@ function fmtKr(n){return n!=null&&n!==''&&n!==0?Number(n).toLocaleString('sv-SE'
 function pct(a,b){return b>0?Math.round(a/b*100):0}
 function domainOf(u){try{return new URL(u).hostname.replace('www.','')}catch(_){return''}}
 function today(){return new Date().toISOString().slice(0,10)}
-async function fetchOgData(url){try{const r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(url));const d=await r.json();const h=d.contents||'';const gM=p=>{const r1=new RegExp('<meta[^>]*property=["\']'+p+'["\'][^>]*content=["\']([^"\']+)["\']','i');const r2=new RegExp('<meta[^>]*content=["\']([^"\']+)["\'][^>]*property=["\']'+p+'["\']','i');return(h.match(r1)||h.match(r2)||[])[1]||''};const tM=h.match(/<title[^>]*>([^<]+)<\/title>/i);return{image:gM('og:image'),title:gM('og:title')||(tM?tM[1]:'')}}catch(_){return{image:'',title:''}}}
+async function fetchOgData(url){try{const r=await fetch('https://api.microlink.io?url='+encodeURIComponent(url));const d=await r.json();if(d.status==='success'&&d.data){return{image:d.data.image?.url||d.data.logo?.url||'',title:d.data.title||''}}return{image:'',title:''}}catch(_){return{image:'',title:''}}}
 async function hashPw(pw){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(pw));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}
 function compressImage(file,maxW=200){return new Promise(res=>{const r=new FileReader();r.onload=ev=>{const img=new Image();img.onload=()=>{const c=document.createElement('canvas');const s=Math.min(maxW/img.width,maxW/img.height,1);c.width=img.width*s;c.height=img.height*s;c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.7))};img.src=ev.target.result};r.readAsDataURL(file)})}
 
